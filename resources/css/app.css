@@ -1,0 +1,123 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+
+    /* Light theme — brand primary #103857 (petrel navy), accent derived from its complement */
+    --color-ink: #f6f8fb; /* page background */
+    --color-panel: #ffffff; /* raised surfaces */
+    --color-line: #dde5ec; /* hairline borders */
+    --color-bone: #103857; /* body & heading text = brand primary */
+    --color-muted: #5c7288; /* secondary text */
+    --color-primary: #103857; /* brand navy — buttons, bands, footer */
+    --color-primary-deep: #0b2940; /* hover / gradient stop */
+    --color-accent: #c75b12; /* burnt-orange complement, AA on light bg */
+    --color-accent-soft: #f2a05e; /* amber for accents on navy surfaces */
+
+    --animate-marquee: marquee 28s linear infinite;
+    --animate-marquee-slow: marquee 45s linear infinite;
+    --animate-spin-slow: spin 14s linear infinite;
+
+    @keyframes marquee {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-50%);
+        }
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+/* Subtle film-grain overlay for depth */
+.grain::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Outlined display text (decorative) */
+.text-stroke {
+    color: transparent;
+    -webkit-text-stroke: 1px color-mix(in oklab, var(--color-primary) 30%, transparent);
+}
+
+/* Outlined display text on navy surfaces */
+.text-stroke-light {
+    color: transparent;
+    -webkit-text-stroke: 1px rgb(255 255 255 / 0.35);
+}
+
+/* Scroll-reveal: JS adds .is-visible via IntersectionObserver.
+   Hidden state only applies when JS is running (html.js set in app.js),
+   so content stays visible if scripts fail to load. */
+.js .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+        opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .animate-marquee,
+    .animate-marquee-slow,
+    .animate-spin-slow {
+        animation: none;
+    }
+}
+
+/* Header gains a backdrop once the page is scrolled (toggled in app.js) */
+#site-header.is-scrolled {
+    background-color: color-mix(in oklab, var(--color-ink) 85%, transparent);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--color-line);
+}
+
+/* Underline that draws in on hover */
+.link-draw {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.link-draw:hover {
+    background-size: 100% 1px;
+}
