@@ -1,58 +1,135 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🌐 Techibytes Media Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![License](https://img.shields.io/badge/license-Proprietary-blue)
+![Framework](https://img.shields.io/badge/framework-Laravel%2013-red)
+![Frontend](https://img.shields.io/badge/frontend-Blade%20%2B%20Tailwind%20CSS-06b6d4)
+![Status](https://img.shields.io/badge/status-active-brightgreen)
 
-## About Laravel
+This repository is the official digital platform for **Techibytes Media**, a software development and digital marketing agency serving clients from Abuja, Nigeria, and Seattle, USA.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Built on Laravel, it provides the foundation for Techibytes Media's public website and the digital experiences, tools, integrations, and services the company may introduce as its needs evolve.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+> **We build digital products that move business forward.**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ✨ Current Foundation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+The platform currently includes:
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- 🏠 Responsive agency landing page
+- 🧩 Dedicated service, portfolio, and graphic design pages
+- 📨 Validated project inquiry form with confirmation feedback
+- 🔎 Page-specific metadata for search and social sharing
+- 📱 Responsive navigation and mobile menu
+- ♿ Reduced-motion support and progressively enhanced animations
+- 🧪 Pest feature tests for public pages and contact submissions
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+This list represents the platform today, not its long-term limit. The application is expected to evolve alongside Techibytes Media, its clients, and its services.
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## 🧰 Tech Stack
+
+- **Language**: PHP 8.4
+- **Framework**: Laravel 13
+- **Templates**: Laravel Blade
+- **Styling**: Tailwind CSS 4
+- **Frontend Tooling**: Vite 8
+- **Client-Side Behavior**: Vanilla JavaScript
+- **Database**: SQLite by default
+- **Testing**: Pest 4
+- **Code Formatting**: Laravel Pint
+
+---
+
+## 📂 Current Public Experience
+
+The current public-facing experience includes:
+
+- `/` — Agency overview
+- `/services` — Software, design, and marketing services
+- `/portfolio` — Selected work and case-study previews
+- `/graphics` — Branding and graphic design capabilities
+- `/contact` — Project inquiry form and office details
+
+Additional areas and capabilities may be introduced as the platform grows.
+
+---
+
+## 🛠️ Getting Started
+
+### 1. Clone the Repository
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone git@gitlab.com:techibytesmedia/techibytesmedia.git
+cd techibytesmedia
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. Install and Configure the Application
 
-## Contributing
+The project provides a Composer setup command that installs dependencies, creates the environment file, generates an application key, runs migrations, and builds the frontend assets:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+composer run setup
+```
 
-## Code of Conduct
+Review `.env` and update the application URL, mail settings, and database configuration for your environment.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 3. Start Local Development
 
-## Security Vulnerabilities
+```bash
+composer run dev
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+This starts the Laravel development server, queue listener, and Vite development server together.
 
-## License
+### 4. Run the Test Suite
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan test --compact
+```
+
+---
+
+## 👥 Contributing
+
+We welcome contributions from trusted collaborators. Read [`CONTRIBUTING.md`](CONTRIBUTING.md) and our [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) before opening a merge request.
+
+📧 Contact [dev@techibytesmedia.com](mailto:dev@techibytesmedia.com) for repository access or development questions.
+
+---
+
+## 🔐 Security
+
+Please do not disclose vulnerabilities through a public issue. Read [`SECURITY.md`](SECURITY.md) and report security concerns privately to [security@techibytesmedia.com](mailto:security@techibytesmedia.com).
+
+---
+
+## 📬 Support
+
+- 💬 Use the project issue tracker for reproducible bugs and approved feature requests
+- 📧 Email [support@techibytesmedia.com](mailto:support@techibytesmedia.com)
+- 🌐 Visit [techibytesmedia.com](https://techibytesmedia.com)
+
+---
+
+## 👨‍💻 Authors
+
+Built and maintained by the **Techibytes Media Dev Team**.
+
+💻 [techibytesmedia.com](https://techibytesmedia.com)
+
+---
+
+## 📝 License
+
+This software and its source code are proprietary and confidential. All rights are reserved by **Techibytes Media LLC**. Unauthorized reproduction, modification, or distribution is prohibited. See [`LICENSE.md`](LICENSE.md) for details.
+
+© 2020–Present Techibytes Media LLC. All rights reserved.
+
+---
+
+## 📊 Project Status
+
+🚧 Actively maintained and under continuous development.

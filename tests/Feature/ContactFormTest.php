@@ -1,6 +1,8 @@
 <?php
 
-test('a valid contact submission redirects back with a status message', function () {
+declare(strict_types = 1);
+
+test('a valid contact submission redirects back with a status message', function (): void {
     $this->post(route('contact.submit'), [
         'name' => 'Ada Obi',
         'email' => 'ada@example.com',
@@ -12,7 +14,7 @@ test('a valid contact submission redirects back with a status message', function
         ->assertSessionHas('status');
 });
 
-test('a contact submission requires the mandatory fields', function (array $payload, string $invalidField) {
+test('a contact submission requires the mandatory fields', function (array $payload, string $invalidField): void {
     $this->from(route('contact'))
         ->post(route('contact.submit'), $payload)
         ->assertRedirect(route('contact'))
