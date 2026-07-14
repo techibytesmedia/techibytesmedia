@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/13/26, 8:15 PM
+ *   Last modified: 7/13/26, 8:44 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -35,7 +35,7 @@ return [
             'title' => 'Bills Waka — Bills Platform',
             'url' => 'https://billswaka.com/',
             'screenshot' => 'images/projects/billswaka.jpg',
-            'sector' => 'Fintech',
+            'sector' => 'Bills Platform',
             'tags' => 'Mobile app · Web development',
             'result' => 'Create virtual dollar cards and make payments with ease.',
         ],
@@ -55,7 +55,7 @@ return [
             'title' => 'Sendbit — Fintech Platform',
             'url' => 'https://mysendbit.com/',
             'screenshot' => 'images/projects/sendbit.jpg',
-            'sector' => 'Payments',
+            'sector' => 'Fintech',
             'tags' => 'App · Web development',
             'result' => 'Accept payments globally through invoices, international accounts and digital assets.',
         ],
