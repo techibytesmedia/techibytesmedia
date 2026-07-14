@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/13/26, 7:22 PM
+ *   Last modified: 7/13/26, 11:33 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -112,7 +112,7 @@ test('the team section presents the two real co-founders', function (): void {
         ->assertDontSee('Maya S.')
         ->assertDontSee('Ibrahim K.');
 
-    foreach (['Elijah Erigbemi.jpg', 'Jude Obiejesi.jpg'] as $photo) {
+    foreach (['Elijah Erigbemi.jpeg', 'Jude Obiejesi.jpg'] as $photo) {
         $response
             ->assertSee("images/founders/{$photo}", false)
             ->assertSee(pathinfo($photo, PATHINFO_FILENAME));

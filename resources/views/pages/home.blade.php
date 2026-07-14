@@ -286,7 +286,7 @@
 
             <div data-testid="founders-grid" class="mx-auto grid max-w-4xl gap-8 sm:grid-cols-2">
                 @foreach ([
-                    ['name' => 'Elijah Erigbemi', 'role' => 'Co-founder', 'photo' => 'images/founders/Elijah Erigbemi.jpg', 'width' => 2345, 'height' => 3518],
+                    ['name' => 'Elijah Erigbemi', 'role' => 'Co-founder', 'photo' => 'images/founders/Elijah Erigbemi.jpeg', 'width' => 2345, 'height' => 3518],
                     ['name' => 'Jude Obiejesi', 'role' => 'Co-founder', 'photo' => 'images/founders/Jude Obiejesi.jpg', 'width' => 958, 'height' => 960],
                 ] as $founder)
                     <article data-testid="founder-card" class="group reveal" style="--reveal-delay: {{ ($loop->index) * 0.08 }}s">
