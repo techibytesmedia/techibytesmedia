@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/11/26, 11:52 AM
+ *   Last modified: 7/13/26, 3:25 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -20,7 +20,6 @@
 declare(strict_types = 1);
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +33,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 */
 
 pest()->extend(TestCase::class)
- // ->use(RefreshDatabase::class)
     ->in('Feature');
 
 /*

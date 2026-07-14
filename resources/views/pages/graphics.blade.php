@@ -1,78 +1,97 @@
 <x-layout
-    title="Create Beautiful Graphics in Seconds | Techibytes Media"
-    description="Design stunning promotional graphics for your events, campaigns and business without any design experience. 100+ templates, one-click sharing, free forever."
+    title="Graphic Design & Branding Services | Techibytes Media"
+    description="Professional graphic design and branding services from Techibytes Media, including logos, social media creative, campaigns, print, packaging, presentations and motion graphics."
 >
 
     {{-- Page hero --}}
     <section class="mx-auto max-w-7xl px-5 pt-36 pb-16 sm:px-8 sm:pt-44 sm:pb-20">
         <p class="reveal text-xs font-semibold uppercase tracking-[0.35em] text-accent">
-            A better way to promote your events, campaigns &amp; business
+            Graphic design &amp; branding services
         </p>
         <h1 class="reveal mt-5 max-w-4xl font-display text-[clamp(2.5rem,7vw,5.5rem)] font-extrabold leading-[1.02]" style="--reveal-delay: .1s">
-            Create beautiful graphics <span class="text-accent">in seconds.</span>
+            Design that makes brands <span class="text-accent">unmistakable.</span>
         </h1>
-        <p class="reveal mt-8 max-w-xl text-lg leading-relaxed text-muted" style="--reveal-delay: .2s">
-            Design stunning promotional graphics for your events, campaigns, and business
-            without any design experience. No credit card required.
+        <p class="reveal mt-8 max-w-2xl text-lg leading-relaxed text-muted" style="--reveal-delay: .2s">
+            Our design team creates purposeful visual identities and campaign assets that help businesses
+            communicate clearly, look credible and stay consistent across every touchpoint.
         </p>
+        <div class="reveal mt-8" style="--reveal-delay: .3s">
+            <a href="{{ route('contact') }}" class="group inline-flex items-center gap-3 rounded-full bg-primary px-7 py-4 font-semibold text-white transition-transform hover:scale-105">
+                Start a design project
+                <span class="transition-transform group-hover:translate-x-1">&rarr;</span>
+            </a>
+        </div>
     </section>
 
-    {{-- Marquee --}}
+    {{-- Services marquee --}}
     <div class="overflow-hidden border-y border-primary/40 bg-primary py-3 text-white">
         <div class="flex w-max animate-marquee-slow gap-8 whitespace-nowrap font-display text-lg font-bold uppercase tracking-wide">
             @for ($i = 0; $i < 2; $i++)
-                @foreach (['Event Flyers', 'Campaign Banners', 'Social Posts', 'Ticket Designs', 'Business Cards', 'Posters'] as $item)
+                @foreach (['Brand Identity', 'Social Creative', 'Campaign Design', 'Print & Packaging', 'Presentations', 'Motion Graphics'] as $item)
                     <span>{{ $item }}</span><span aria-hidden="true">&#10022;</span>
                 @endforeach
             @endfor
         </div>
     </div>
 
-    {{-- Templates --}}
+    {{-- Design services --}}
     <section class="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
-        <h2 class="reveal font-display text-[clamp(2rem,5vw,4rem)] font-extrabold">Beautiful templates for everything</h2>
-        <p class="reveal mt-4 max-w-xl text-muted" style="--reveal-delay: .05s">
-            Choose from hundreds of professionally designed templates.
-        </p>
+        <div class="max-w-2xl">
+            <p class="reveal text-xs font-semibold uppercase tracking-[0.35em] text-muted">What we design</p>
+            <h2 class="reveal mt-4 font-display text-[clamp(2rem,5vw,4rem)] font-extrabold">
+                Creative support for every stage of your brand
+            </h2>
+            <p class="reveal mt-5 leading-relaxed text-muted" style="--reveal-delay: .05s">
+                From a new identity to an ongoing campaign, we shape the visuals your audience sees and remembers.
+            </p>
+        </div>
 
         <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             @foreach ([
-                ['icon' => '🎉', 'title' => 'Event Flyer', 'desc' => 'Professional event announcements.'],
-                ['icon' => '📢', 'title' => 'Campaign Banner', 'desc' => 'Marketing campaign visuals.'],
-                ['icon' => '📱', 'title' => 'Social Post', 'desc' => 'Instagram & Facebook ready.'],
-                ['icon' => '🎫', 'title' => 'Ticket Design', 'desc' => 'Professional event tickets.'],
-                ['icon' => '💼', 'title' => 'Business Card', 'desc' => 'Print-ready cards.'],
-                ['icon' => '📄', 'title' => 'Poster', 'desc' => 'Large format promotions.'],
-            ] as $template)
-                <div class="reveal rounded-2xl border border-line bg-panel p-8 transition-colors hover:border-accent/50" style="--reveal-delay: {{ ($loop->index % 3) * 0.1 }}s">
-                    <span class="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 text-2xl" aria-hidden="true">{{ $template['icon'] }}</span>
-                    <h3 class="mt-6 font-display text-xl font-bold">{{ $template['title'] }}</h3>
-                    <p class="mt-3 text-sm leading-relaxed text-muted">{{ $template['desc'] }}</p>
-                </div>
+                ['title' => 'Logo & Brand Identity', 'desc' => 'Distinctive logos, colour systems, typography and practical brand guidelines that keep your identity consistent.'],
+                ['title' => 'Social Media Creative', 'desc' => 'On-brand social posts, covers, carousels and advertising assets designed for the platforms you use.'],
+                ['title' => 'Campaign Design', 'desc' => 'A unified visual direction for launches, events, promotions and marketing campaigns across every channel.'],
+                ['title' => 'Print & Packaging', 'desc' => 'Business cards, brochures, flyers, signage, merchandise and packaging prepared for professional production.'],
+                ['title' => 'Presentations & Reports', 'desc' => 'Clear, polished pitch decks, company profiles, proposals and reports that make complex ideas easier to understand.'],
+                ['title' => 'Motion Graphics', 'desc' => 'Animated logos, promotional graphics and short-form motion assets that bring your brand to life.'],
+            ] as $service)
+                <article class="reveal rounded-2xl border border-line bg-panel p-8 transition-colors hover:border-accent/50" style="--reveal-delay: {{ ($loop->index % 3) * 0.08 }}s">
+                    <p class="font-display text-4xl font-extrabold text-stroke">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</p>
+                    <h3 class="mt-6 font-display text-xl font-bold">{{ $service['title'] }}</h3>
+                    <p class="mt-3 text-sm leading-relaxed text-muted">{{ $service['desc'] }}</p>
+                </article>
             @endforeach
         </div>
     </section>
 
-    {{-- Why choose --}}
+    {{-- Process --}}
     <section class="border-t border-line bg-panel">
         <div class="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
-            <h2 class="reveal max-w-2xl font-display text-[clamp(2rem,5vw,4rem)] font-extrabold">
-                Why choose our graphics studio?
-            </h2>
+            <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+                <div class="lg:col-span-5">
+                    <p class="reveal text-xs font-semibold uppercase tracking-[0.35em] text-muted">How we work</p>
+                    <h2 class="reveal mt-4 font-display text-[clamp(2rem,5vw,4rem)] font-extrabold">
+                        A collaborative design process
+                    </h2>
+                    <p class="reveal mt-5 max-w-md leading-relaxed text-muted" style="--reveal-delay: .05s">
+                        You bring the goal and context. We guide the creative direction, develop the work with you and deliver assets ready to use.
+                    </p>
+                </div>
 
-            <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                @foreach ([
-                    ['title' => 'Create in seconds', 'desc' => 'No design experience needed. Start with beautiful templates and customize in minutes.'],
-                    ['title' => 'Share instantly', 'desc' => 'Share your designs on social media, email, or download as high-quality images.'],
-                    ['title' => 'Track performance', 'desc' => 'Monitor views, shares, and engagement across all your promotional materials.'],
-                    ['title' => 'Collaborate', 'desc' => 'Invite team members to create and manage campaigns together in one place.'],
-                ] as $feature)
-                    <div class="reveal rounded-2xl border border-line bg-ink p-7 transition-colors hover:border-accent/50" style="--reveal-delay: {{ ($loop->index) * 0.1 }}s">
-                        <p class="font-display text-5xl font-extrabold text-stroke">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</p>
-                        <h3 class="mt-6 font-display text-xl font-bold">{{ $feature['title'] }}</h3>
-                        <p class="mt-3 text-sm leading-relaxed text-muted">{{ $feature['desc'] }}</p>
-                    </div>
-                @endforeach
+                <ol class="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:col-span-7">
+                    @foreach ([
+                        ['title' => 'Brief & discovery', 'desc' => 'We learn about your brand, audience, goals, deliverables and timeline.'],
+                        ['title' => 'Creative direction', 'desc' => 'We establish the visual direction and align on the strongest concept.'],
+                        ['title' => 'Design & refinement', 'desc' => 'We develop the chosen direction and refine it through structured feedback.'],
+                        ['title' => 'Final delivery', 'desc' => 'You receive organized, production-ready files in the formats your team needs.'],
+                    ] as $step)
+                        <li class="reveal bg-ink p-7 sm:p-8" style="--reveal-delay: {{ ($loop->index % 2) * 0.08 }}s">
+                            <span class="text-xs font-semibold uppercase tracking-[0.25em] text-accent">Step {{ $loop->iteration }}</span>
+                            <h3 class="mt-4 font-display text-xl font-bold">{{ $step['title'] }}</h3>
+                            <p class="mt-3 text-sm leading-relaxed text-muted">{{ $step['desc'] }}</p>
+                        </li>
+                    @endforeach
+                </ol>
             </div>
         </div>
     </section>
@@ -80,12 +99,16 @@
     {{-- CTA --}}
     <section class="border-t border-line">
         <div class="mx-auto max-w-7xl px-5 py-24 text-center sm:px-8 sm:py-32">
-            <h2 class="reveal font-display text-[clamp(2rem,5vw,4rem)] font-extrabold">
-                Ready to start <span class="text-accent">creating?</span>
+            <p class="reveal text-xs font-semibold uppercase tracking-[0.35em] text-muted">Have a project in mind?</p>
+            <h2 class="reveal mt-5 font-display text-[clamp(2rem,5vw,4rem)] font-extrabold">
+                Tell us what you need <span class="text-accent">designed.</span>
             </h2>
+            <p class="reveal mx-auto mt-5 max-w-xl leading-relaxed text-muted" style="--reveal-delay: .05s">
+                Share your goals, required deliverables and timeline. Our team will review the brief and recommend the right next step.
+            </p>
             <div class="reveal mt-8" style="--reveal-delay: .1s">
                 <a href="{{ route('contact') }}" class="group inline-flex items-center gap-3 rounded-full bg-primary px-8 py-4 font-semibold text-white transition-transform hover:scale-105">
-                    Get in touch
+                    Brief our design team
                     <span class="transition-transform group-hover:translate-x-1">&rarr;</span>
                 </a>
             </div>

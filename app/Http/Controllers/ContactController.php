@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/11/26, 11:52 AM
+ *   Last modified: 7/13/26, 8:10 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -21,29 +21,34 @@ declare(strict_types = 1);
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Log;
+use App\Http\Requests\ContactRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Crypt;
 
 class ContactController extends Controller
 {
+    public const string SUCCESS_MESSAGE = 'Thanks — we got your message and will reply within one business day.';
+
+    public function show(): View
+    {
+        return view('pages.contact', [
+            'contactFormToken' => Crypt::encryptString((string) now()->timestamp),
+        ]);
+    }
+
     /**
      * Handle a contact form submission.
      */
-    public function __invoke(Request $request): RedirectResponse
+    public function store(ContactRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:120'],
-            'email' => ['required', 'email', 'max:255'],
-            'service' => ['nullable', 'string', 'max:120'],
-            'budget' => ['nullable', 'string', 'max:60'],
-            'message' => ['required', 'string', 'max:5000'],
-        ]);
+        $validated = $request->safe()->except('cf-turnstile-response');
 
         Log::channel('single')->info('Contact inquiry received', $validated);
 
         return redirect()
             ->route('contact')
-            ->with('status', "Thanks {$validated['name']} — we got your message and will reply within one business day.");
+            ->with('status', self::SUCCESS_MESSAGE);
     }
 }

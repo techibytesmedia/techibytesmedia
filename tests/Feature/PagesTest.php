@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/11/26, 11:52 AM
+ *   Last modified: 7/13/26, 7:22 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -35,5 +35,195 @@ test('every page includes the shared navigation and footer', function (): void {
     $this->get(route('home'))
         ->assertSee('techibytes')
         ->assertSee('Suite 303, 3rd Floor,', false)
-        ->assertSee('600 1st Ave, Ste 102 #1105,', false);
+        ->assertSee('600 1st Ave, Ste 102 #1105,', false)
+        ->assertSee('data-testid="footer-wordmark"', false)
+        ->assertSee('text-[clamp(1.5rem,8vw,8rem)]', false)
+        ->assertSee('aria-hidden="true"', false);
+});
+
+test('the Seattle phone number appears in the footer and contact page', function (): void {
+    foreach (['home', 'contact'] as $route_name) {
+        $this->get(route($route_name))
+            ->assertSuccessful()
+            ->assertSee('href="tel:+12065786373"', false)
+            ->assertSee('+1 206 578 6373');
+    }
+});
+
+test('the shared layout loads the brand fonts', function (): void {
+    $this->get(route('home'))
+        ->assertSuccessful()
+        ->assertSee('font-family: "Instrument Sans"', false)
+        ->assertSee('font-family: "Outfit"', false)
+        ->assertDontSee('fonts.googleapis.com', false);
+});
+
+test('the home hero uses a restrained top-right gradient on mobile', function (): void {
+    $this->get(route('home'))
+        ->assertSuccessful()
+        ->assertSee('-top-20 right-[-15%] h-72 w-72', false)
+        ->assertSee('bg-accent/8 blur-[90px]', false)
+        ->assertSee('sm:bg-accent/10 sm:blur-[120px]', false)
+        ->assertDontSee('data-testid="mobile-hero-decoration"', false)
+        ->assertDontSee('data-testid="mobile-hero-marker"', false)
+        ->assertSee('blur-[100px] sm:block', false);
+
+    expect(file_get_contents(resource_path('css/app.css')))
+        ->not->toContain('--animate-hero-marker:')
+        ->not->toContain('@keyframes hero-marker');
+});
+
+test('the trusted clients section displays real logos responsively', function (): void {
+    $response = $this->get(route('home'))
+        ->assertSuccessful()
+        ->assertSee('data-testid="trusted-client-logos"', false)
+        ->assertSee('grid w-full grid-cols-2 gap-3 sm:hidden', false)
+        ->assertSee('hidden w-full overflow-hidden sm:block', false)
+        ->assertSee('Trusted by teams in fintech, education &amp; lifestyle', false)
+        ->assertDontSee('images/work-done-logos/techibytes-logo.png', false);
+
+    foreach (['bills-waka-logo.png', 'scholarly_logo.png', 'sendbit-logo.png', 'topfreshcuts-logo.png'] as $logo) {
+        $response->assertSee("images/work-done-logos/{$logo}", false);
+        expect(public_path("images/work-done-logos/{$logo}"))->toBeFile();
+    }
+
+    expect(mb_substr_count($response->getContent(), 'images/work-done-logos/'))->toBe(12);
+});
+
+test('the home page presents realistic project and client totals', function (): void {
+    $this->get(route('home'))
+        ->assertSuccessful()
+        ->assertSee('data-count="20"', false)
+        ->assertSee('Projects delivered')
+        ->assertSee('data-count="15"', false)
+        ->assertSee('Happy clients')
+        ->assertDontSee('data-count="200"', false)
+        ->assertDontSee('data-count="150"', false);
+});
+
+test('the team section presents the two real co-founders', function (): void {
+    $response = $this->get(route('home'))
+        ->assertSuccessful()
+        ->assertSee('data-testid="founders-grid"', false)
+        ->assertSee('mx-auto grid max-w-4xl gap-8 sm:grid-cols-2', false)
+        ->assertSee('Meet the co-founders guiding the strategy')
+        ->assertDontSee('Emmanuel O.')
+        ->assertDontSee('Tola A.')
+        ->assertDontSee('Maya S.')
+        ->assertDontSee('Ibrahim K.');
+
+    foreach (['Elijah Erigbemi.jpg', 'Jude Obiejesi.jpg'] as $photo) {
+        $response
+            ->assertSee("images/founders/{$photo}", false)
+            ->assertSee(pathinfo($photo, PATHINFO_FILENAME));
+
+        expect(public_path("images/founders/{$photo}"))->toBeFile();
+    }
+
+    expect(mb_substr_count($response->getContent(), 'data-testid="founder-card"'))->toBe(2)
+        ->and(mb_substr_count($response->getContent(), 'images/founders/'))->toBe(2)
+        ->and(mb_substr_count($response->getContent(), 'Co-founder'))->toBeGreaterThanOrEqual(2);
+});
+
+test('project pages use automatically captured website screenshots', function (): void {
+    $topfreshcuts = config('projects.items.topfreshcuts');
+
+    foreach (['home', 'portfolio'] as $route_name) {
+        $response = $this->get(route($route_name))
+            ->assertSuccessful()
+            ->assertSee($topfreshcuts['title'])
+            ->assertSee($topfreshcuts['tags'])
+            ->assertDontSee('TopFreshCuts — grooming platform');
+
+        foreach (config('projects.items') as $project) {
+            $response
+                ->assertSee($project['url'], false)
+                ->assertSee($project['screenshot'], false)
+                ->assertSee($project['name']);
+        }
+    }
+});
+
+test('the homepage shows at most four projects explicitly marked as recent', function (): void {
+    $projects = config('projects.items');
+    $projects['future-project'] = [
+        'recent' => true,
+        'name' => 'Future Project',
+        'title' => 'Future Project — Digital Platform',
+        'url' => 'https://future-project.example/',
+        'screenshot' => 'images/projects/future-project.jpg',
+        'sector' => 'Technology',
+        'tags' => 'Web development',
+        'result' => 'A future portfolio project.',
+    ];
+
+    config(['projects.items' => $projects]);
+
+    $home = $this->get(route('home'))
+        ->assertSuccessful()
+        ->assertDontSee('Future Project — Digital Platform');
+
+    expect(mb_substr_count($home->getContent(), 'images/projects/'))->toBe(4);
+
+    $projects['billswaka']['recent'] = false;
+    config(['projects.items' => $projects]);
+
+    $home = $this->get(route('home'))
+        ->assertSuccessful()
+        ->assertSee('Future Project — Digital Platform')
+        ->assertDontSee($projects['billswaka']['title']);
+
+    expect(mb_substr_count($home->getContent(), 'images/projects/'))->toBe(4);
+
+    $this->get(route('portfolio'))
+        ->assertSuccessful()
+        ->assertSee('Future Project — Digital Platform')
+        ->assertSee($projects['billswaka']['title']);
+});
+
+test('project screenshot hover motion stays restrained', function (): void {
+    foreach (['home', 'portfolio'] as $route_name) {
+        $this->get(route($route_name))
+            ->assertSuccessful()
+            ->assertSee('duration-500 ease-out group-hover:scale-[1.02]', false)
+            ->assertSee('motion-reduce:transform-none motion-reduce:transition-none', false)
+            ->assertDontSee('group-hover:scale-105', false);
+    }
+});
+
+test('portfolio sector tags sit below project screenshots', function (): void {
+    $response = $this->get(route('portfolio'))
+        ->assertSuccessful()
+        ->assertSee('data-testid="project-sector"', false)
+        ->assertSee('mt-5', false)
+        ->assertSee('flex flex-wrap items-center justify-between gap-3', false)
+        ->assertSee('border-primary/20 bg-primary/8', false)
+        ->assertSee('font-semibold uppercase tracking-[0.14em] text-primary', false)
+        ->assertDontSee('data-testid="project-sector" class="absolute', false)
+        ->assertDontSee('shadow-lg shadow-primary/25', false);
+
+    expect(mb_substr_count($response->getContent(), 'data-testid="project-sector"'))->toBe(count(config('projects.items')));
+});
+
+test('services present representative technologies without implying an exhaustive list', function (): void {
+    $response = $this->get(route('services'))
+        ->assertSuccessful()
+        ->assertSee('Laravel')
+        ->assertSee('PHP')
+        ->assertSee('Adobe Illustrator')
+        ->assertSee('And many more');
+
+    expect(mb_substr_count($response->getContent(), 'And many more'))->toBe(7);
+});
+
+test('graphics page presents professional design services instead of a self-service product', function (): void {
+    $this->get(route('graphics'))
+        ->assertSuccessful()
+        ->assertSee('Graphic design &amp; branding services', false)
+        ->assertSee('Logo &amp; Brand Identity', false)
+        ->assertSee('A collaborative design process')
+        ->assertSee('Brief our design team')
+        ->assertDontSee('No credit card required')
+        ->assertDontSee('free forever')
+        ->assertDontSee('Choose from hundreds of professionally designed templates');
 });

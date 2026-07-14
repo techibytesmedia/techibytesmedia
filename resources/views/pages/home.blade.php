@@ -5,8 +5,8 @@
 
     {{-- Hero --}}
     <section class="relative overflow-hidden pt-36 pb-20 sm:pt-44 sm:pb-28">
-        <div aria-hidden="true" class="pointer-events-none absolute -top-40 right-[-10%] h-[34rem] w-[34rem] rounded-full bg-accent/10 blur-[120px]"></div>
-        <div aria-hidden="true" class="pointer-events-none absolute bottom-[-20%] left-[-15%] h-[28rem] w-[28rem] rounded-full bg-primary/5 blur-[100px]"></div>
+        <div aria-hidden="true" class="pointer-events-none absolute -top-20 right-[-15%] h-72 w-72 rounded-full bg-accent/8 blur-[90px] sm:-top-40 sm:right-[-10%] sm:h-[34rem] sm:w-[34rem] sm:bg-accent/10 sm:blur-[120px]"></div>
+        <div aria-hidden="true" class="pointer-events-none absolute bottom-[-20%] left-[-15%] hidden h-[28rem] w-[28rem] rounded-full bg-primary/5 blur-[100px] sm:block"></div>
 
         <div class="relative mx-auto max-w-7xl px-5 sm:px-8">
             <p class="reveal text-xs font-semibold uppercase tracking-[0.35em] text-accent">
@@ -39,8 +39,8 @@
             {{-- Stats --}}
             <div class="reveal mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-4" style="--reveal-delay: .3s">
                 @foreach ([
-                    ['count' => '200', 'suffix' => '+', 'label' => 'Projects delivered'],
-                    ['count' => '150', 'suffix' => '+', 'label' => 'Happy clients'],
+                    ['count' => '20', 'suffix' => '+', 'label' => 'Projects delivered'],
+                    ['count' => '15', 'suffix' => '+', 'label' => 'Happy clients'],
                     ['count' => '98', 'suffix' => '%', 'label' => 'Client satisfaction'],
                     ['count' => '24', 'suffix' => '/7', 'label' => 'Support available'],
                 ] as $stat)
@@ -63,16 +63,54 @@
         </div>
     </section>
 
-    {{-- Trusted by (placeholder wordmarks — replace with real client logos) --}}
+    @php
+        $trustedClients = [
+            ['name' => 'Bills Waka', 'logo' => 'images/work-done-logos/bills-waka-logo.png', 'width' => 192, 'height' => 192],
+            ['name' => 'Scholarly', 'logo' => 'images/work-done-logos/scholarly_logo.png', 'width' => 250, 'height' => 48],
+            ['name' => 'Sendbit', 'logo' => 'images/work-done-logos/sendbit-logo.png', 'width' => 300, 'height' => 300],
+            ['name' => 'TopFreshCuts', 'logo' => 'images/work-done-logos/topfreshcuts-logo.png', 'width' => 500, 'height' => 500],
+        ];
+    @endphp
+
+    {{-- Trusted by --}}
     <section class="border-t border-line py-10">
         <div class="mx-auto flex max-w-7xl flex-col items-center gap-6 px-5 sm:px-8">
-            <p class="text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-muted">Trusted by teams in fintech, education &amp; payments</p>
-            <div class="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
-                <div class="flex w-max animate-marquee-slow items-center gap-14 whitespace-nowrap">
-                    @for ($i = 0; $i < 4; $i++)
-                        @foreach (['Billswaka', 'Scholarly', 'Sendbit', 'Value Lead Africa'] as $client)
-                            <span class="font-display text-lg font-bold text-bone/30 transition-colors hover:text-bone/60">{{ $client }}</span>
-                        @endforeach
+            <p class="text-center text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-muted">Trusted by teams in fintech, education &amp; lifestyle</p>
+
+            <div data-testid="trusted-client-logos" class="grid w-full grid-cols-2 gap-3 sm:hidden">
+                @foreach ($trustedClients as $client)
+                    <div class="flex h-24 items-center justify-center rounded-xl border border-line bg-panel px-4 py-3">
+                        <img
+                            src="{{ asset($client['logo']) }}"
+                            alt="{{ $client['name'] }} logo"
+                            width="{{ $client['width'] }}"
+                            height="{{ $client['height'] }}"
+                            loading="lazy"
+                            decoding="async"
+                            class="max-h-16 max-w-full object-contain opacity-80"
+                        >
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="hidden w-full overflow-hidden sm:block [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+                <div class="flex w-max animate-marquee-slow items-center">
+                    @for ($i = 0; $i < 2; $i++)
+                        <div class="flex shrink-0 items-center gap-5 pr-5">
+                            @foreach ($trustedClients as $client)
+                                <div class="flex h-24 w-52 shrink-0 items-center justify-center rounded-xl border border-line bg-panel px-6 py-4">
+                                    <img
+                                        src="{{ asset($client['logo']) }}"
+                                        alt="{{ $i === 0 ? $client['name'].' logo' : '' }}"
+                                        width="{{ $client['width'] }}"
+                                        height="{{ $client['height'] }}"
+                                        loading="lazy"
+                                        decoding="async"
+                                        class="max-h-16 max-w-full object-contain opacity-70 transition-opacity hover:opacity-100"
+                                    >
+                                </div>
+                            @endforeach
+                        </div>
                     @endfor
                 </div>
             </div>
@@ -134,7 +172,7 @@
 
             <div class="divide-y divide-line border-y border-line">
                 @foreach ([
-                    ['no' => '01', 'title' => 'Web Development', 'desc' => 'Fast, secure, search-friendly websites and web apps built on modern stacks.', 'tags' => 'Laravel · React · E-commerce'],
+                    ['no' => '01', 'title' => 'Web Development', 'desc' => 'Fast, secure, search-friendly websites and web apps built on modern stacks.', 'tags' => 'Laravel · React · TypeScript'],
                     ['no' => '02', 'title' => 'Mobile App Development', 'desc' => 'Native-quality iOS and Android apps that users keep coming back to.', 'tags' => 'iOS · Android · Cross-platform'],
                     ['no' => '03', 'title' => 'UI/UX Design', 'desc' => 'Research-driven interfaces designed to convert, delight and retain.', 'tags' => 'Product design · Prototyping'],
                     ['no' => '04', 'title' => 'Digital Marketing', 'desc' => 'Campaigns across search and social that turn attention into revenue.', 'tags' => 'PPC · Social · Content'],
@@ -158,6 +196,12 @@
 
     {{-- Selected work --}}
     <section class="border-t border-line">
+        @php
+            $recentProjects = collect(config('projects.items'))
+                ->filter(fn (array $project): bool => $project['recent'] ?? false)
+                ->take((int) config('projects.recent_limit', 4));
+        @endphp
+
         <div class="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
             <div class="mb-14 flex flex-wrap items-end justify-between gap-6">
                 <div>
@@ -170,25 +214,27 @@
             </div>
 
             <div class="grid gap-6 md:grid-cols-2">
-                @foreach ([
-                    ['title' => 'Billswaka — fintech platform', 'tags' => 'Mobile app · Web development', 'from' => '#dce9f4', 'to' => '#2f7fc4', 'offset' => false],
-                    ['title' => 'Scholarly — education platform', 'tags' => 'Web development · 3m+ users', 'from' => '#fdeade', 'to' => '#e07a2e', 'offset' => true],
-                    ['title' => 'Sendbit — payment application', 'tags' => 'App · Web development', 'from' => '#e0f0ea', 'to' => '#2fa886', 'offset' => false],
-                ] as $project)
-                    <a href="{{ route('portfolio') }}" @class(['group reveal block', 'md:mt-16' => $project['offset']])>
-                        <div class="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line">
-                            <div
-                                class="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
-                                style="background: radial-gradient(120% 120% at 20% 20%, {{ $project['to'] }}33 0%, transparent 55%), linear-gradient(135deg, {{ $project['from'] }} 0%, var(--color-panel) 70%)"
-                            ></div>
+                @foreach ($recentProjects as $project)
+                    <a href="{{ $project['url'] }}" target="_blank" rel="noopener noreferrer" @class(['group reveal block', 'md:mt-16' => $loop->index % 2 === 1])>
+                        <div class="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line bg-panel">
+                            <img
+                                src="{{ asset($project['screenshot']) }}"
+                                alt="{{ $project['name'] }} website homepage"
+                                width="1440"
+                                height="1080"
+                                loading="lazy"
+                                decoding="async"
+                                class="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02] motion-reduce:transform-none motion-reduce:transition-none"
+                            >
+                            <div class="absolute inset-0 bg-gradient-to-t from-ink/35 via-transparent to-transparent"></div>
                             <span class="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full bg-bone/10 text-lg opacity-0 backdrop-blur transition-opacity group-hover:opacity-100" aria-hidden="true">&nearr;</span>
                             <span class="absolute bottom-5 left-5 font-display text-6xl font-extrabold text-stroke opacity-60">
                                 {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}
                             </span>
                         </div>
-                        <div class="mt-5 flex items-center justify-between gap-4">
+                        <div class="mt-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
                             <h3 class="font-display text-xl font-bold transition-colors group-hover:text-accent sm:text-2xl">{{ $project['title'] }}</h3>
-                            <p class="shrink-0 text-xs uppercase tracking-widest text-muted">{{ $project['tags'] }}</p>
+                            <p class="text-xs uppercase tracking-widest text-muted sm:shrink-0">{{ $project['tags'] }}</p>
                         </div>
                     </a>
                 @endforeach
@@ -223,7 +269,7 @@
         </div>
     </section>
 
-    {{-- Team (placeholder members — replace with real people & photos) --}}
+    {{-- Founders --}}
     <section class="border-t border-line">
         <div class="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
             <div class="mb-14 flex flex-wrap items-end justify-between gap-6">
@@ -234,30 +280,32 @@
                     <h2 class="reveal mt-4 font-display text-[clamp(2rem,5vw,4rem)] font-extrabold">The people behind the work</h2>
                 </div>
                 <p class="reveal max-w-sm text-sm leading-relaxed text-muted">
-                    Engineers, designers and marketers working as one team across Abuja and Seattle.
+                    Meet the co-founders guiding the strategy, technology and creative direction behind Techibytes Media.
                 </p>
             </div>
 
-            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div data-testid="founders-grid" class="mx-auto grid max-w-4xl gap-8 sm:grid-cols-2">
                 @foreach ([
-                    ['initials' => 'EO', 'name' => 'Emmanuel O.', 'role' => 'Founder & Lead Engineer', 'from' => '#dce9f4', 'to' => '#2f7fc4'],
-                    ['initials' => 'TA', 'name' => 'Tola A.', 'role' => 'Head of Design', 'from' => '#fdeade', 'to' => '#e07a2e'],
-                    ['initials' => 'MS', 'name' => 'Maya S.', 'role' => 'Growth & Marketing Lead', 'from' => '#ece4f4', 'to' => '#7a4fc7'],
-                    ['initials' => 'IK', 'name' => 'Ibrahim K.', 'role' => 'Senior Mobile Engineer', 'from' => '#e0f0ea', 'to' => '#2fa886'],
-                ] as $member)
-                    <div class="group reveal" style="--reveal-delay: {{ ($loop->index) * 0.08 }}s">
-                        <div class="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-2xl border border-line">
-                            <div
-                                class="absolute inset-0 transition-transform duration-700 group-hover:scale-110"
-                                style="background: radial-gradient(120% 120% at 50% 0%, {{ $member['to'] }}2e 0%, transparent 60%), linear-gradient(170deg, {{ $member['from'] }} 0%, var(--color-panel) 75%)"
-                            ></div>
-                            <span class="relative font-display text-6xl font-extrabold text-stroke">{{ $member['initials'] }}</span>
+                    ['name' => 'Elijah Erigbemi', 'role' => 'Co-founder', 'photo' => 'images/founders/Elijah Erigbemi.jpg', 'width' => 2345, 'height' => 3518],
+                    ['name' => 'Jude Obiejesi', 'role' => 'Co-founder', 'photo' => 'images/founders/Jude Obiejesi.jpg', 'width' => 958, 'height' => 960],
+                ] as $founder)
+                    <article data-testid="founder-card" class="group reveal" style="--reveal-delay: {{ ($loop->index) * 0.08 }}s">
+                        <div class="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-panel">
+                            <img
+                                src="{{ asset($founder['photo']) }}"
+                                alt="Portrait of {{ $founder['name'] }}, {{ $founder['role'] }} of Techibytes Media"
+                                width="{{ $founder['width'] }}"
+                                height="{{ $founder['height'] }}"
+                                loading="lazy"
+                                decoding="async"
+                                class="h-full w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02] motion-reduce:transform-none motion-reduce:transition-none"
+                            >
                         </div>
-                        <div class="mt-4">
-                            <h3 class="font-display text-lg font-bold transition-colors group-hover:text-accent">{{ $member['name'] }}</h3>
-                            <p class="text-sm text-muted">{{ $member['role'] }}</p>
+                        <div class="mt-5 flex items-start justify-between gap-4 border-t border-line pt-4">
+                            <h3 class="font-display text-xl font-bold transition-colors group-hover:text-accent">{{ $founder['name'] }}</h3>
+                            <p class="shrink-0 text-xs font-semibold uppercase tracking-[0.16em] text-muted">{{ $founder['role'] }}</p>
                         </div>
-                    </div>
+                    </article>
                 @endforeach
             </div>
         </div>

@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/11/26, 11:52 AM
+ *   Last modified: 7/13/26, 8:12 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -21,7 +21,12 @@ declare(strict_types = 1);
 
 namespace App\Providers;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use App\Support\ContactFormSpamLogger;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Support\Facades\RateLimiter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,5 +38,19 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void {}
+    public function boot(ContactFormSpamLogger $spam_logger): void
+    {
+        RateLimiter::for('contact-form', function (Request $request) use ($spam_logger): Limit {
+            return Limit::perMinutes(10, 5)
+                ->by($request->ip() ?? 'unknown')
+                ->response(function (Request $request, array $headers) use ($spam_logger): RedirectResponse {
+                    $spam_logger->log($request, 'rate_limit_exceeded');
+
+                    return redirect()
+                        ->route('contact')
+                        ->with('error', 'Too many messages were submitted from your connection. Please wait 10 minutes and try again.')
+                        ->withHeaders($headers);
+                });
+        });
+    }
 }

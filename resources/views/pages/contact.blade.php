@@ -2,6 +2,10 @@
     title="Contact Us — Abuja & Seattle | Techibytes Media"
     description="Talk to Techibytes Media about your next website, app, brand or campaign. Offices in Abuja, Nigeria and Seattle, USA."
 >
+    @push('head')
+        <link rel="preconnect" href="https://challenges.cloudflare.com">
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    @endpush
 
     {{-- Page hero --}}
     <section class="mx-auto max-w-7xl px-5 pt-36 pb-16 sm:px-8 sm:pt-44 sm:pb-20">
@@ -20,6 +24,12 @@
 
             {{-- Form --}}
             <div class="reveal lg:col-span-7">
+                @if (session('error'))
+                    <div class="mb-8 rounded-2xl border border-red-600/40 bg-red-600/10 p-6 text-red-600" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                 @if (session('status'))
                     <div class="mb-8 rounded-2xl border border-accent/40 bg-accent/10 p-6 text-accent" role="status">
                         {{ session('status') }}
@@ -28,6 +38,18 @@
 
                 <form method="POST" action="{{ route('contact.submit') }}" class="space-y-6">
                     @csrf
+                    <input type="hidden" name="_contact_form" value="{{ $contactFormToken }}">
+
+                    <div class="pointer-events-none absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+                        <label for="company_website">Company website</label>
+                        <input
+                            type="text"
+                            id="company_website"
+                            name="company_website"
+                            tabindex="-1"
+                            autocomplete="off"
+                        >
+                    </div>
 
                     <div class="grid gap-6 sm:grid-cols-2">
                         <div>
@@ -108,6 +130,19 @@
                         @enderror
                     </div>
 
+                    <div>
+                        <div
+                            class="cf-turnstile w-full"
+                            data-sitekey="{{ config('services.turnstile.site_key') }}"
+                            data-action="{{ config('services.turnstile.action') }}"
+                            data-theme="dark"
+                            data-size="flexible"
+                        ></div>
+                        @error('cf-turnstile-response')
+                            <p class="mt-2 text-sm text-red-600" role="alert">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     <button
                         type="submit"
                         class="group inline-flex items-center gap-3 rounded-full bg-primary px-8 py-4 font-semibold text-white transition-transform hover:scale-105"
@@ -137,6 +172,7 @@
                         Seattle, WA 98104,<br>
                         United States
                     </p>
+                    <a href="tel:+12065786373" class="link-draw mt-4 inline-block font-semibold text-accent">+1 206 578 6373</a>
                 </div>
 
                 <div class="rounded-2xl border border-line bg-panel p-8">

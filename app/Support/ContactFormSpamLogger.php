@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/11/26, 11:52 AM
+ *   Last modified: 7/13/26, 8:15 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -19,6 +19,21 @@
 
 declare(strict_types = 1);
 
-test('that true is true', function (): void {
-    expect(true)->toBeTrue();
-});
+namespace App\Support;
+
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
+class ContactFormSpamLogger
+{
+    public function log(Request $request, string $reason): void
+    {
+        Log::warning('Suspicious contact form submission blocked', [
+            'reason' => $reason,
+            'ip' => $request->ip(),
+            'route' => $request->route()?->getName(),
+            'user_agent' => Str::limit((string) $request->userAgent(), 255, ''),
+        ]);
+    }
+}

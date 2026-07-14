@@ -1,7 +1,80 @@
 @props([
     'title' => 'Techibytes Media — Software Development & Digital Marketing Agency',
     'description' => 'Techibytes Media is a software development and digital marketing agency in Abuja, Nigeria and Seattle, USA. Web development, mobile apps, UI/UX design, SEO and branding.',
+    'canonical' => null,
+    'image' => null,
 ])
+
+@php
+    $siteUrl = rtrim((string) config('app.url'), '/');
+    $canonicalUrl = $canonical ?? $siteUrl.(request()->getPathInfo() === '/' ? '/' : request()->getPathInfo());
+    $socialImageUrl = $image ?? $siteUrl.'/images/logo/logo-background.png';
+    $organizationId = $siteUrl.'/#organization';
+    $websiteId = $siteUrl.'/#website';
+
+    $structuredData = [
+        '@context' => 'https://schema.org',
+        '@graph' => [
+            [
+                '@type' => 'Organization',
+                '@id' => $organizationId,
+                'name' => 'Techibytes Media',
+                'legalName' => 'Techibytes Media LLC',
+                'url' => $siteUrl.'/',
+                'logo' => $siteUrl.'/images/logo/logo-background.png',
+                'description' => 'A software development and digital marketing agency serving clients from Abuja, Nigeria and Seattle, USA.',
+                'email' => 'info@techibytesmedia.com',
+                'telephone' => '+2349031807262',
+                'contactPoint' => [
+                    [
+                        '@type' => 'ContactPoint',
+                        'telephone' => '+2349031807262',
+                        'contactType' => 'customer service',
+                        'areaServed' => 'NG',
+                        'availableLanguage' => 'en',
+                    ],
+                    [
+                        '@type' => 'ContactPoint',
+                        'telephone' => '+12065786373',
+                        'contactType' => 'customer service',
+                        'areaServed' => 'US',
+                        'availableLanguage' => 'en',
+                    ],
+                ],
+                'sameAs' => [
+                    'https://www.facebook.com/techibytesmedia',
+                    'https://x.com/techibytes_hq',
+                    'https://www.instagram.com/techibytes',
+                    'https://www.linkedin.com/company/techibytesmedia',
+                ],
+                'address' => [
+                    [
+                        '@type' => 'PostalAddress',
+                        'streetAddress' => 'Suite 303, 3rd Floor, Ammah Plaza, Near NAF Conference Center',
+                        'addressLocality' => 'Abuja',
+                        'addressCountry' => 'NG',
+                    ],
+                    [
+                        '@type' => 'PostalAddress',
+                        'streetAddress' => '600 1st Ave, Ste 102 #1105',
+                        'addressLocality' => 'Seattle',
+                        'addressRegion' => 'WA',
+                        'postalCode' => '98104',
+                        'addressCountry' => 'US',
+                    ],
+                ],
+            ],
+            [
+                '@type' => 'WebSite',
+                '@id' => $websiteId,
+                'url' => $siteUrl.'/',
+                'name' => 'Techibytes Media',
+                'publisher' => ['@id' => $organizationId],
+                'inLanguage' => 'en',
+            ],
+        ],
+    ];
+@endphp
 
 <!doctype html>
 <html lang="en" class="scroll-smooth">
@@ -13,11 +86,22 @@
     <meta name="description" content="{{ $description }}">
     <meta name="author" content="Techibytes Media">
     <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ $canonicalUrl }}">
 
     <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ $canonicalUrl }}">
     <meta property="og:title" content="{{ $title }}">
     <meta property="og:description" content="{{ $description }}">
     <meta property="og:site_name" content="Techibytes Media">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="{{ $socialImageUrl }}">
+    <meta property="og:image:alt" content="Techibytes Media">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ $title }}">
+    <meta name="twitter:description" content="{{ $description }}">
+    <meta name="twitter:image" content="{{ $socialImageUrl }}">
+    <meta name="twitter:image:alt" content="Techibytes Media">
 
     <link rel="icon" href="{{ asset('favicon_io/favicon.ico') }}" sizes="any">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon_io/favicon-32x32.png') }}">
@@ -25,11 +109,13 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon_io/apple-touch-icon.png') }}">
     <link rel="manifest" href="{{ asset('favicon_io/site.webmanifest') }}">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    @if (request()->routeIs('home'))
+        <script type="application/ld+json">{!! json_encode($structuredData, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+    @endif
 
+    @fonts
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('head')
 </head>
 <body class="grain min-h-screen overflow-x-clip bg-ink font-sans text-bone antialiased">
 
@@ -130,7 +216,7 @@
                     <div class="mt-6 flex gap-3">
                         @foreach ([
                             'Facebook' => 'https://www.facebook.com/techibytesmedia',
-                            'X' => 'https://www.twitter.com/techibytesmedia',
+                            'X' => 'https://x.com/techibytes_hq',
                             'Instagram' => 'https://www.instagram.com/techibytesmedia',
                             'LinkedIn' => 'https://www.linkedin.com/company/techibytesmedia',
                         ] as $network => $url)
@@ -175,19 +261,26 @@
                         600 1st Ave, Ste 102 #1105,<br>
                         Seattle, WA 98104
                     </p>
-                    <a href="mailto:info@techibytesmedia.com" class="link-draw mt-3 inline-block text-sm text-white/80">info@techibytesmedia.com</a>
+                    <div class="mt-3 flex flex-col items-start gap-2">
+                        <a href="tel:+12065786373" class="link-draw text-sm text-accent-soft">+1 206 578 6373</a>
+                        <a href="mailto:info@techibytesmedia.com" class="link-draw text-sm text-white/80">info@techibytesmedia.com</a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="overflow-hidden border-t border-white/10 py-6">
-            <p class="select-none whitespace-nowrap text-center font-display text-[clamp(3rem,10vw,8rem)] font-extrabold leading-none text-white/5">
+        <div class="overflow-hidden border-t border-white/10 py-6 sm:py-8">
+            <p
+                data-testid="footer-wordmark"
+                aria-hidden="true"
+                class="w-full select-none whitespace-nowrap text-center font-display text-[clamp(1.5rem,8vw,8rem)] font-extrabold leading-none tracking-tight text-white/5"
+            >
                 TECHIBYTES MEDIA
             </p>
         </div>
 
         <div class="border-t border-white/10">
-            <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-5 py-5 text-xs text-white/50 sm:flex-row sm:px-8">
+            <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-1.5 px-4 py-5 text-center text-xs leading-relaxed text-white/50 sm:flex-row sm:gap-4 sm:px-8 sm:text-left">
                 <p>&copy; {{ date('Y') }} Techibytes Media. All rights reserved.</p>
                 <p>Abuja, Nigeria &mdash; Seattle, USA</p>
             </div>

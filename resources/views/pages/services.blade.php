@@ -23,7 +23,7 @@
                     'title' => 'Web Development',
                     'lead' => 'Build your digital foundation.',
                     'body' => 'Best web development services in Abuja, Nigeria & Seattle. We create powerful, scalable websites and web applications that drive business growth.',
-                    'tech' => ['React', 'Next.js', 'Node.js', 'TypeScript', 'Tailwind CSS'],
+                    'tech' => ['Laravel', 'PHP', 'React', 'Next.js', 'Node.js', 'TypeScript', 'Tailwind CSS', 'WordPress', 'And many more'],
                     'items' => ['Custom website development', 'E-commerce solutions', 'Progressive Web Apps (PWA)', 'API integration & development', 'CMS development (WordPress, Strapi)', 'Performance optimization'],
                 ],
                 [
@@ -31,7 +31,7 @@
                     'title' => 'Mobile App Development',
                     'lead' => 'Reach users everywhere.',
                     'body' => 'Expert mobile app development in Abuja and Nigeria. Native and cross-platform mobile solutions that engage users and deliver exceptional experiences.',
-                    'tech' => ['React Native', 'Flutter', 'Swift', 'Kotlin', 'Firebase'],
+                    'tech' => ['React Native', 'Flutter', 'Dart', 'Swift', 'Kotlin', 'Firebase', 'Expo', 'And many more'],
                     'items' => ['iOS app development', 'Android app development', 'Cross-platform development', 'App Store optimization', 'Push notifications', 'Offline functionality'],
                 ],
                 [
@@ -39,7 +39,7 @@
                     'title' => 'Digital Marketing',
                     'lead' => 'Amplify your brand.',
                     'body' => 'Top digital marketing company in Abuja and Nigeria. Data-driven campaigns that increase visibility, generate leads, and drive conversions.',
-                    'tech' => ['Google Ads', 'Meta Ads', 'LinkedIn Ads', 'HubSpot', 'Mailchimp'],
+                    'tech' => ['Google Ads', 'Meta Ads', 'LinkedIn Ads', 'TikTok Ads', 'HubSpot', 'Mailchimp', 'Google Tag Manager', 'And many more'],
                     'items' => ['Social media marketing', 'Content marketing', 'Email marketing campaigns', 'Pay-Per-Click (PPC) advertising', 'Brand strategy & positioning', 'Analytics & reporting'],
                 ],
                 [
@@ -47,7 +47,7 @@
                     'title' => 'SEO Optimization',
                     'lead' => 'Dominate search rankings.',
                     'body' => 'Strategic SEO services that improve your search rankings, drive organic traffic, and increase conversions for businesses in Abuja and Nigeria.',
-                    'tech' => ['SEMrush', 'Ahrefs', 'Google Analytics', 'Search Console', 'Screaming Frog'],
+                    'tech' => ['SEMrush', 'Ahrefs', 'Google Analytics', 'Search Console', 'Screaming Frog', 'Google Business Profile', 'Looker Studio', 'And many more'],
                     'items' => ['Technical SEO audits', 'Keyword research & strategy', 'On-page optimization', 'Link building', 'Local SEO', 'SEO content creation'],
                 ],
                 [
@@ -55,7 +55,7 @@
                     'title' => 'UI/UX Design',
                     'lead' => 'Design that converts.',
                     'body' => 'Beautiful, intuitive designs that captivate users and create memorable digital experiences that drive engagement and conversions.',
-                    'tech' => ['Figma', 'Adobe XD', 'Sketch', 'InVision', 'Principle'],
+                    'tech' => ['Figma', 'FigJam', 'Adobe Illustrator', 'Adobe Photoshop', 'Framer', 'ProtoPie', 'And many more'],
                     'items' => ['User research & testing', 'Wireframing & prototyping', 'Visual design', 'Design systems', 'Responsive design', 'Accessibility design'],
                 ],
                 [
@@ -63,7 +63,7 @@
                     'title' => 'Digital Strategy & Publications',
                     'lead' => 'Strategic growth.',
                     'body' => 'Data-driven strategies and online publications across top blogs and media platforms that drive sustainable business growth.',
-                    'tech' => ['Google Analytics', 'Tableau', 'HubSpot', 'Hotjar', 'Mixpanel'],
+                    'tech' => ['Google Analytics', 'Looker Studio', 'Tableau', 'HubSpot', 'Hotjar', 'Mixpanel', 'Notion', 'And many more'],
                     'items' => ['Digital transformation strategy', 'Market research & analysis', 'Content strategy', 'Media publications', 'Growth hacking', 'Performance tracking'],
                 ],
                 [
@@ -71,7 +71,7 @@
                     'title' => 'Branding & Graphics',
                     'lead' => 'Identities and visuals that make your brand unmistakable everywhere it shows up.',
                     'body' => 'Logos, brand systems, campaign creative, print and motion. Every asset drawn from one coherent identity, ready for web, social and the real world.',
-                    'tech' => [],
+                    'tech' => ['Adobe Illustrator', 'Adobe Photoshop', 'Adobe InDesign', 'After Effects', 'Figma', 'Canva', 'And many more'],
                     'items' => ['Logo & identity design', 'Brand guidelines', 'Social & campaign creative', 'Print & packaging', 'Motion graphics'],
                 ],
             ] as $service)
@@ -87,7 +87,11 @@
                             <p class="mt-8 text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-muted">Technologies we use</p>
                             <ul class="mt-4 flex flex-wrap gap-2">
                                 @foreach ($service['tech'] as $tool)
-                                    <li class="rounded-full border border-line bg-panel px-3 py-1.5 text-xs font-medium text-bone/85">{{ $tool }}</li>
+                                    <li @class([
+                                        'rounded-full border px-3 py-1.5 text-xs font-medium',
+                                        'border-line bg-panel text-bone/85' => ! $loop->last,
+                                        'border-accent/30 bg-accent/5 text-accent' => $loop->last,
+                                    ])>{{ $tool }}</li>
                                 @endforeach
                             </ul>
                         @endif

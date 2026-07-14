@@ -19,31 +19,35 @@
     <section class="border-t border-line">
         <div class="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
             <div class="grid gap-x-6 gap-y-16 md:grid-cols-2">
-                @foreach ([
-                    ['title' => 'Billswaka', 'sector' => 'Fintech', 'tags' => 'Mobile app · Web development', 'result' => 'Create virtual dollar cards and make payments with ease.', 'from' => '#dce9f4', 'to' => '#2f7fc4'],
-                    ['title' => 'Scholarly', 'sector' => 'Education', 'tags' => 'Web development', 'result' => 'A leading educational technology company based in Nigeria with over 3m users.', 'from' => '#fdeade', 'to' => '#e07a2e'],
-                    ['title' => 'Sendbit', 'sector' => 'Payments', 'tags' => 'App · Web development', 'result' => 'Accept payments around the globe through invoices, PayPal and international accounts (USD, GBP, EURO) — and swap crypto to naira and other local currencies.', 'from' => '#e0f0ea', 'to' => '#2fa886'],
-                ] as $project)
+                @foreach (config('projects.items') as $project)
                     <article @class(['group reveal', 'md:mt-20' => $loop->index % 2 === 1, 'md:-mt-20' => $loop->index % 2 === 0 && ! $loop->first])>
-                        <div class="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line">
-                            <div
-                                class="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
-                                style="background: radial-gradient(120% 120% at 20% 20%, {{ $project['to'] }}33 0%, transparent 55%), linear-gradient(135deg, {{ $project['from'] }} 0%, var(--color-panel) 70%)"
-                            ></div>
-                            <span class="absolute left-5 top-5 rounded-full border border-bone/20 bg-ink/40 px-4 py-1.5 text-xs font-medium uppercase tracking-widest backdrop-blur">
-                                {{ $project['sector'] }}
-                            </span>
-                            <span class="absolute bottom-5 left-5 font-display text-6xl font-extrabold text-stroke opacity-60">
-                                {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}
-                            </span>
-                        </div>
-                        <div class="mt-5">
-                            <div class="flex items-start justify-between gap-4">
-                                <h2 class="font-display text-xl font-bold transition-colors group-hover:text-accent sm:text-2xl">{{ $project['title'] }}</h2>
-                                <p class="shrink-0 pt-1 text-xs uppercase tracking-widest text-muted">{{ $project['tags'] }}</p>
+                        <a href="{{ $project['url'] }}" target="_blank" rel="noopener noreferrer" class="block">
+                            <div class="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line bg-panel">
+                                <img
+                                    src="{{ asset($project['screenshot']) }}"
+                                    alt="{{ $project['name'] }} website homepage"
+                                    width="1440"
+                                    height="1080"
+                                    loading="lazy"
+                                    decoding="async"
+                                    class="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02] motion-reduce:transform-none motion-reduce:transition-none"
+                                >
+                                <div class="absolute inset-0 bg-gradient-to-t from-ink/45 via-transparent to-transparent"></div>
+                                <span class="absolute bottom-5 left-5 font-display text-6xl font-extrabold text-stroke opacity-60">
+                                    {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}
+                                </span>
+                            </div>
+                            <div class="mt-5">
+                                <div class="flex flex-wrap items-center justify-between gap-3">
+                                    <span data-testid="project-sector" class="inline-flex items-center rounded-full border border-primary/20 bg-primary/8 px-3 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-primary">
+                                        {{ $project['sector'] }}
+                                    </span>
+                                    <p class="text-xs uppercase tracking-widest text-muted">{{ $project['tags'] }}</p>
+                                </div>
+                                <h2 class="mt-3 font-display text-xl font-bold transition-colors group-hover:text-accent sm:text-2xl">{{ $project['title'] }}</h2>
                             </div>
                             <p class="mt-2 text-sm text-muted"><span class="text-accent">&#10022;</span> {{ $project['result'] }}</p>
-                        </div>
+                        </a>
                     </article>
                 @endforeach
             </div>
