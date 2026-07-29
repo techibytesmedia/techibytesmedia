@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/13/26, 8:15 PM
+ *   Last modified: 7/29/26, 12:13 AM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -21,17 +21,26 @@ declare(strict_types = 1);
 
 namespace App\Console\Commands;
 
+use Throwable;
+use Random\RandomException;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Process;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Attributes\Description;
+use App\Contracts\ProjectScreenshotManagerContract;
 
 #[Signature('projects:capture {project? : Capture only the project with this slug}')]
 #[Description('Capture fresh website screenshots for the project portfolio')]
 class CaptureProjectScreenshots extends Command
 {
+    public function __construct(private readonly ProjectScreenshotManagerContract $screenshots)
+    {
+        parent::__construct();
+    }
+
     /**
      * Execute the console command.
+     * @throws RandomException
      */
     public function handle(): int
     {
@@ -51,8 +60,9 @@ class CaptureProjectScreenshots extends Command
 
         $failures = 0;
 
-        foreach ($projects as $project) {
-            $this->line("Capturing {$project['name']}...");
+        foreach ($projects as $project_key => $project) {
+            $new_screenshot = $this->screenshots->nextScreenshotPath($project['screenshot']);
+            $this->line("Capturing {$project['name']} ({$project['url']})...");
 
             $result = Process::path(base_path())
                 ->timeout((int) config('projects.capture.timeout', 120))
@@ -62,7 +72,7 @@ class CaptureProjectScreenshots extends Command
                     '--url',
                     $project['url'],
                     '--output',
-                    public_path($project['screenshot']),
+                    public_path($new_screenshot),
                     '--width',
                     (string) config('projects.capture.viewport_width', 1440),
                     '--height',
@@ -70,6 +80,7 @@ class CaptureProjectScreenshots extends Command
                 ]);
 
             if ( ! $result->successful()) {
+                $this->screenshots->discardScreenshot($new_screenshot);
                 $failures++;
                 $message = mb_trim($result->errorOutput()) ?: 'The capture process exited unexpectedly.';
                 $this->error("Could not capture {$project['name']}: {$message}");
@@ -77,7 +88,25 @@ class CaptureProjectScreenshots extends Command
                 continue;
             }
 
-            $this->info("Captured {$project['name']}.");
+            try {
+                $old_screenshot_removed = $this->screenshots->activateScreenshot(
+                    $project_key,
+                    $project['screenshot'],
+                    $new_screenshot,
+                );
+            } catch (Throwable $exception) {
+                $this->screenshots->discardScreenshot($new_screenshot);
+                $failures++;
+                $this->error("Could not activate {$project['name']} screenshot: {$exception->getMessage()}");
+
+                continue;
+            }
+
+            if ( ! $old_screenshot_removed) {
+                $this->warn("Captured {$project['name']}, but its previous screenshot could not be removed.");
+            }
+
+            $this->info("Captured {$project['name']} as {$new_screenshot}.");
         }
 
         if ($failures > 0) {

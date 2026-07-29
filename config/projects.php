@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/13/26, 8:44 PM
+ *   Last modified: 7/29/26, 12:30 AM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -34,7 +34,7 @@ return [
             'name' => 'BillsWaka',
             'title' => 'Bills Waka — Bills Platform',
             'url' => 'https://billswaka.com/',
-            'screenshot' => 'images/projects/billswaka.jpg',
+            'screenshot' => 'images/projects/billswaka-495798.jpg',
             'sector' => 'Bills Platform',
             'tags' => 'Mobile app · Web development',
             'result' => 'Create virtual dollar cards and make payments with ease.',
@@ -44,7 +44,7 @@ return [
             'name' => 'Scholarly',
             'title' => 'Scholarly — Education Platform',
             'url' => 'https://scholarly.africa/',
-            'screenshot' => 'images/projects/scholarly.jpg',
+            'screenshot' => 'images/projects/scholarly-387435.jpg',
             'sector' => 'Education',
             'tags' => 'Web development',
             'result' => 'A leading educational technology company based in Nigeria with over 3m users.',
@@ -54,7 +54,7 @@ return [
             'name' => 'Sendbit',
             'title' => 'Sendbit — Fintech Platform',
             'url' => 'https://mysendbit.com/',
-            'screenshot' => 'images/projects/sendbit.jpg',
+            'screenshot' => 'images/projects/sendbit-495328.jpg',
             'sector' => 'Fintech',
             'tags' => 'App · Web development',
             'result' => 'Accept payments globally through invoices, international accounts and digital assets.',
@@ -64,10 +64,30 @@ return [
             'name' => 'TopFreshCuts',
             'title' => 'TopFreshCuts — Barbershop',
             'url' => 'https://topfreshcuts.com/',
-            'screenshot' => 'images/projects/topfreshcuts.jpg',
+            'screenshot' => 'images/projects/topfreshcuts-648647.jpg',
             'sector' => 'Beauty & Grooming',
             'tags' => 'Web development · booking',
             'result' => 'A modern barbershop website that showcases services, pricing and makes it easy for clients to book appointments.',
+        ],
+        'hofashionhub' => [
+            'recent' => true,
+            'name' => 'HO Fashion Hub',
+            'title' => 'HO Fashion Hub — Fashion E-commerce',
+            'url' => 'https://hofashionhub.com/',
+            'screenshot' => 'images/projects/hofashionhub-229983.jpg',
+            'sector' => 'Fashion & E-commerce',
+            'tags' => 'Web development · E-commerce',
+            'result' => 'An online fashion destination designed to help customers discover and shop curated styles.',
+        ],
+        'st-michaels-afh' => [
+            'recent' => true,
+            'name' => "St. Michael's AFH",
+            'title' => "St. Michael's AFH — Adult Family Home",
+            'url' => 'https://stmichaelsafh.com/',
+            'screenshot' => 'images/projects/st-michaels-afh-552774.jpg',
+            'sector' => 'Healthcare',
+            'tags' => 'Web development',
+            'result' => 'A welcoming adult family home website that presents its care services and helps families get in touch.',
         ],
     ],
 ];

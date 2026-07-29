@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/13/26, 8:12 PM
+ *   Last modified: 7/29/26, 12:13 AM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -26,14 +26,19 @@ use Illuminate\Http\RedirectResponse;
 use App\Support\ContactFormSpamLogger;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
+use App\Services\ProjectScreenshotManager;
 use Illuminate\Support\Facades\RateLimiter;
+use App\Contracts\ProjectScreenshotManagerContract;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      */
-    public function register(): void {}
+    public function register(): void
+    {
+        $this->app->bind(ProjectScreenshotManagerContract::class, ProjectScreenshotManager::class);
+    }
 
     /**
      * Bootstrap any application services.

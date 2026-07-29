@@ -3,7 +3,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/11/26, 11:52 AM
+ *   Last modified: 7/18/26, 8:37 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -54,6 +54,16 @@ if (menuToggle && mobileMenu) {
         const nowHidden = mobileMenu.classList.toggle('hidden');
         menuToggle.setAttribute('aria-expanded', String(!nowHidden));
         document.body.classList.toggle('overflow-hidden', !nowHidden);
+    });
+}
+
+// Theme toggle — light by default, choice persisted per visitor (see head script in layout)
+const themeToggle = document.getElementById('theme-toggle');
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
     });
 }
 

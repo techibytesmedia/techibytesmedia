@@ -4,14 +4,18 @@
 >
 
     {{-- Page hero --}}
-    <section class="mx-auto max-w-7xl px-5 pt-36 pb-16 sm:px-8 sm:pt-44 sm:pb-20">
-        <p class="reveal text-xs font-semibold uppercase tracking-[0.35em] text-accent">Services</p>
-        <h1 class="reveal mt-5 max-w-4xl font-display text-[clamp(2.5rem,7vw,5.5rem)] font-extrabold leading-[1.02]" style="--reveal-delay: .1s">
-            Everything your brand needs to win <span class="text-accent">online.</span>
-        </h1>
-        <p class="reveal mt-8 max-w-xl text-lg leading-relaxed text-muted" style="--reveal-delay: .2s">
-            One team, seven disciplines. Mix and match — or hand us the whole journey from idea to growth.
-        </p>
+    <section class="relative overflow-hidden pt-36 pb-16 sm:pt-44 sm:pb-20">
+        <x-hero-grid />
+
+        <div class="relative mx-auto max-w-7xl px-5 sm:px-8">
+            <p class="reveal text-xs font-semibold uppercase tracking-[0.35em] text-accent">Services</p>
+            <h1 class="reveal mt-5 max-w-4xl font-display text-[clamp(2.5rem,7vw,5.5rem)] font-extrabold leading-[1.02]" style="--reveal-delay: .1s">
+                Everything your brand needs to win <span class="text-accent">online.</span>
+            </h1>
+            <p class="reveal mt-8 max-w-xl text-lg leading-relaxed text-muted" style="--reveal-delay: .2s">
+                One team, seven disciplines. Mix and match — or hand us the whole journey from idea to growth.
+            </p>
+        </div>
     </section>
 
     {{-- Service detail blocks --}}

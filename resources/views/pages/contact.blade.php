@@ -8,15 +8,19 @@
     @endpush
 
     {{-- Page hero --}}
-    <section class="mx-auto max-w-7xl px-5 pt-36 pb-16 sm:px-8 sm:pt-44 sm:pb-20">
-        <p class="reveal text-xs font-semibold uppercase tracking-[0.35em] text-accent">Contact</p>
-        <h1 class="reveal mt-5 max-w-4xl font-display text-[clamp(2.5rem,7vw,5.5rem)] font-extrabold leading-[1.02]" style="--reveal-delay: .1s">
-            Let's talk about <span class="text-accent">your project.</span>
-        </h1>
-        <p class="reveal mt-8 max-w-xl text-lg leading-relaxed text-muted" style="--reveal-delay: .2s">
-            Tell us what you're building and we'll come back within one business day with honest
-            advice and clear next steps — no pressure, no jargon.
-        </p>
+    <section class="relative overflow-hidden pt-36 pb-16 sm:pt-44 sm:pb-20">
+        <x-hero-grid />
+
+        <div class="relative mx-auto max-w-7xl px-5 sm:px-8">
+            <p class="reveal text-xs font-semibold uppercase tracking-[0.35em] text-accent">Contact</p>
+            <h1 class="reveal mt-5 max-w-4xl font-display text-[clamp(2.5rem,7vw,5.5rem)] font-extrabold leading-[1.02]" style="--reveal-delay: .1s">
+                Let's talk about <span class="text-accent">your project.</span>
+            </h1>
+            <p class="reveal mt-8 max-w-xl text-lg leading-relaxed text-muted" style="--reveal-delay: .2s">
+                Tell us what you're building and we'll come back within one business day with honest
+                advice and clear next steps — no pressure, no jargon.
+            </p>
+        </div>
     </section>
 
     <section class="border-t border-line">

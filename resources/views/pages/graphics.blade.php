@@ -4,22 +4,26 @@
 >
 
     {{-- Page hero --}}
-    <section class="mx-auto max-w-7xl px-5 pt-36 pb-16 sm:px-8 sm:pt-44 sm:pb-20">
-        <p class="reveal text-xs font-semibold uppercase tracking-[0.35em] text-accent">
-            Graphic design &amp; branding services
-        </p>
-        <h1 class="reveal mt-5 max-w-4xl font-display text-[clamp(2.5rem,7vw,5.5rem)] font-extrabold leading-[1.02]" style="--reveal-delay: .1s">
-            Design that makes brands <span class="text-accent">unmistakable.</span>
-        </h1>
-        <p class="reveal mt-8 max-w-2xl text-lg leading-relaxed text-muted" style="--reveal-delay: .2s">
-            Our design team creates purposeful visual identities and campaign assets that help businesses
-            communicate clearly, look credible and stay consistent across every touchpoint.
-        </p>
-        <div class="reveal mt-8" style="--reveal-delay: .3s">
-            <a href="{{ route('contact') }}" class="group inline-flex items-center gap-3 rounded-full bg-primary px-7 py-4 font-semibold text-white transition-transform hover:scale-105">
-                Start a design project
-                <span class="transition-transform group-hover:translate-x-1">&rarr;</span>
-            </a>
+    <section class="relative overflow-hidden pt-36 pb-16 sm:pt-44 sm:pb-20">
+        <x-hero-grid />
+
+        <div class="relative mx-auto max-w-7xl px-5 sm:px-8">
+            <p class="reveal text-xs font-semibold uppercase tracking-[0.35em] text-accent">
+                Graphic design &amp; branding services
+            </p>
+            <h1 class="reveal mt-5 max-w-4xl font-display text-[clamp(2.5rem,7vw,5.5rem)] font-extrabold leading-[1.02]" style="--reveal-delay: .1s">
+                Design that makes brands <span class="text-accent">unmistakable.</span>
+            </h1>
+            <p class="reveal mt-8 max-w-2xl text-lg leading-relaxed text-muted" style="--reveal-delay: .2s">
+                Our design team creates purposeful visual identities and campaign assets that help businesses
+                communicate clearly, look credible and stay consistent across every touchpoint.
+            </p>
+            <div class="reveal mt-8" style="--reveal-delay: .3s">
+                <a href="{{ route('contact') }}" class="group inline-flex items-center gap-3 rounded-full bg-primary px-7 py-4 font-semibold text-white transition-transform hover:scale-105">
+                    Start a design project
+                    <span class="transition-transform group-hover:translate-x-1">&rarr;</span>
+                </a>
+            </div>
         </div>
     </section>
 

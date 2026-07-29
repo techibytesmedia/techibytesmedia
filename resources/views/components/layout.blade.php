@@ -113,6 +113,15 @@
         <script type="application/ld+json">{!! json_encode($structuredData, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
     @endif
 
+    {{-- Dark mode is hidden for now; uncomment to re-enable the persisted theme (see also the theme-toggle button below) --}}
+    {{--
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+    --}}
+
     @fonts
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('head')
@@ -123,7 +132,8 @@
     <header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-all duration-300">
         <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
             <a href="{{ route('home') }}" class="flex items-center gap-3">
-                <img src="{{ asset('images/logo/logo-2.png') }}" alt="Techibytes Media logo" class="h-10 w-10">
+                <img src="{{ asset('images/logo/logo-2.png') }}" alt="Techibytes Media logo" class="h-10 w-10 dark:hidden">
+                <img src="{{ asset('images/logo/logo-white-2.png') }}" alt="Techibytes Media logo" class="hidden h-10 w-10 dark:block">
                 <span class="font-display text-xl font-extrabold tracking-tight">
                     Techibytes<span class="mx-0.5 text-accent">.</span><span class="text-muted">Media</span>
                 </span>
@@ -157,6 +167,23 @@
                     <span class="transition-transform group-hover:translate-x-0.5">&rarr;</span>
                 </a>
 
+                {{-- Dark mode toggle, hidden for now; uncomment with the head theme script to re-enable --}}
+                {{--
+                <button
+                    id="theme-toggle"
+                    type="button"
+                    class="flex h-11 w-11 items-center justify-center rounded-full border border-line text-bone transition-colors hover:border-accent/50 hover:text-accent"
+                >
+                    <span class="sr-only">Toggle dark mode</span>
+                    <svg class="h-5 w-5 dark:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                    </svg>
+                    <svg class="hidden h-5 w-5 dark:block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+                    </svg>
+                </button>
+                --}}
+
                 <button
                     id="menu-toggle"
                     type="button"
@@ -172,8 +199,10 @@
         </div>
 
         {{-- Mobile menu --}}
-        <div id="mobile-menu" class="hidden border-t border-line bg-ink/95 backdrop-blur-xl lg:hidden">
-            <nav class="flex flex-col gap-1 px-5 py-6" aria-label="Mobile">
+        <div id="mobile-menu" class="relative hidden overflow-hidden border-t border-line bg-ink/95 backdrop-blur-xl lg:hidden">
+            <x-hero-grid :show-boxes-on-mobile="true" />
+
+            <nav class="relative flex flex-col gap-1 px-5 py-6" aria-label="Mobile">
                 @foreach ([
                     'home' => 'Home',
                     'services' => 'Services',

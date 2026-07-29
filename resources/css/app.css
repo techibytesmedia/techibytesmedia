@@ -3,7 +3,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/11/26, 11:52 AM
+ *   Last modified: 7/18/26, 8:36 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -16,6 +16,8 @@
  */
 
 @import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -50,6 +52,18 @@
     }
 }
 
+/* Dark theme — opt-in via .dark on <html> (topbar toggle); light stays the default */
+.dark {
+    --color-ink: #0b1826; /* page background */
+    --color-panel: #102133; /* raised surfaces */
+    --color-line: #21374d; /* hairline borders */
+    --color-bone: #e9eff6; /* body & heading text */
+    --color-muted: #8fa5ba; /* secondary text */
+    --color-primary: #164a75; /* lifted navy so buttons & bands read on dark ink */
+    --color-primary-deep: #0f3453; /* hover / gradient stop */
+    --color-accent: #f2a05e; /* amber replaces burnt orange for AA on dark bg */
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -79,7 +93,7 @@ body {
 /* Outlined display text (decorative) */
 .text-stroke {
     color: transparent;
-    -webkit-text-stroke: 1px color-mix(in oklab, var(--color-primary) 30%, transparent);
+    -webkit-text-stroke: 1px color-mix(in oklab, var(--color-bone) 30%, transparent);
 }
 
 /* Outlined display text on navy surfaces */

@@ -5,12 +5,12 @@
 
     {{-- Hero --}}
     <section class="relative overflow-hidden pt-36 pb-20 sm:pt-44 sm:pb-28">
-        <div aria-hidden="true" class="pointer-events-none absolute -top-20 right-[-15%] h-72 w-72 rounded-full bg-accent/8 blur-[90px] sm:-top-40 sm:right-[-10%] sm:h-[34rem] sm:w-[34rem] sm:bg-accent/10 sm:blur-[120px]"></div>
-        <div aria-hidden="true" class="pointer-events-none absolute bottom-[-20%] left-[-15%] hidden h-[28rem] w-[28rem] rounded-full bg-primary/5 blur-[100px] sm:block"></div>
+        <x-hero-grid />
 
         <div class="relative mx-auto max-w-7xl px-5 sm:px-8">
             <p class="reveal text-xs font-semibold uppercase tracking-[0.35em] text-accent">
-                Software &middot; Design &middot; Marketing &mdash; Abuja &times; Seattle
+                <span class="sm:hidden">Digital Agency</span>
+                <span class="hidden sm:inline">Software &middot; Design &middot; Marketing &mdash; Abuja &times; Seattle</span>
             </p>
 
             <h1 class="reveal mt-6 max-w-5xl font-display text-[clamp(2.75rem,8vw,6.5rem)] font-extrabold leading-[0.98] tracking-tight" style="--reveal-delay: .1s">
@@ -69,13 +69,15 @@
             ['name' => 'Scholarly', 'logo' => 'images/work-done-logos/scholarly_logo.png', 'width' => 250, 'height' => 48],
             ['name' => 'Sendbit', 'logo' => 'images/work-done-logos/sendbit-logo.png', 'width' => 300, 'height' => 300],
             ['name' => 'TopFreshCuts', 'logo' => 'images/work-done-logos/topfreshcuts-logo.png', 'width' => 500, 'height' => 500],
+            ['name' => "St. Michael's AFH", 'logo' => 'images/work-done-logos/st-michaels-logo.png', 'width' => 1254, 'height' => 1254],
+            ['name' => 'HO Fashion Hub', 'logo' => 'images/work-done-logos/hofashionhub-logo.png', 'width' => 1058, 'height' => 562],
         ];
     @endphp
 
     {{-- Trusted by --}}
     <section class="border-t border-line py-10">
         <div class="mx-auto flex max-w-7xl flex-col items-center gap-6 px-5 sm:px-8">
-            <p class="text-center text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-muted">Trusted by teams in fintech, education &amp; lifestyle</p>
+            <p class="text-center text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-muted">Trusted by teams across fintech, education, healthcare, fashion &amp; lifestyle</p>
 
             <div data-testid="trusted-client-logos" class="grid w-full grid-cols-2 gap-3 sm:hidden">
                 @foreach ($trustedClients as $client)
@@ -345,7 +347,15 @@
 
     {{-- Big CTA --}}
     <section class="relative overflow-hidden bg-primary text-white">
-        <div aria-hidden="true" class="pointer-events-none absolute left-1/2 top-1/2 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-soft/15 blur-[120px]"></div>
+        {{-- Grid-box background graphic, dark variant: grid at the edges, clear behind the copy --}}
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-top-right bg-[size:56px_56px] bg-[image:linear-gradient(to_right,rgb(255_255_255/0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/0.07)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_65%_65%_at_50%_50%,transparent_30%,black_80%)]"></div>
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0 hidden sm:block">
+            <span class="absolute top-14 left-28 h-14 w-14 bg-accent-soft/15"></span>
+            <span class="absolute top-28 left-14 h-14 w-14 bg-white/5"></span>
+            <span class="absolute top-42 right-14 h-14 w-14 border border-accent-soft/25"></span>
+            <span class="absolute bottom-28 right-28 h-14 w-14 bg-accent-soft/15"></span>
+            <span class="absolute bottom-14 left-42 h-14 w-14 bg-white/5"></span>
+        </div>
 
         <div class="relative mx-auto max-w-7xl px-5 py-28 text-center sm:px-8 sm:py-40">
             <p class="reveal text-xs font-semibold uppercase tracking-[0.35em] text-accent-soft">Got an idea?</p>

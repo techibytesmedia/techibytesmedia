@@ -4,15 +4,19 @@
 >
 
     {{-- Page hero --}}
-    <section class="mx-auto max-w-7xl px-5 pt-36 pb-16 sm:px-8 sm:pt-44 sm:pb-20">
-        <p class="reveal text-xs font-semibold uppercase tracking-[0.35em] text-accent">Portfolio</p>
-        <h1 class="reveal mt-5 max-w-4xl font-display text-[clamp(2.5rem,7vw,5.5rem)] font-extrabold leading-[1.02]" style="--reveal-delay: .1s">
-            Work that <span class="text-accent">works.</span>
-        </h1>
-        <p class="reveal mt-8 max-w-xl text-lg leading-relaxed text-muted" style="--reveal-delay: .2s">
-            Explore our latest projects and see how we've helped businesses build their
-            creative ideas into innovative products.
-        </p>
+    <section class="relative overflow-hidden pt-36 pb-16 sm:pt-44 sm:pb-20">
+        <x-hero-grid />
+
+        <div class="relative mx-auto max-w-7xl px-5 sm:px-8">
+            <p class="reveal text-xs font-semibold uppercase tracking-[0.35em] text-accent">Portfolio</p>
+            <h1 class="reveal mt-5 max-w-4xl font-display text-[clamp(2.5rem,7vw,5.5rem)] font-extrabold leading-[1.02]" style="--reveal-delay: .1s">
+                Work that <span class="text-accent">works.</span>
+            </h1>
+            <p class="reveal mt-8 max-w-xl text-lg leading-relaxed text-muted" style="--reveal-delay: .2s">
+                Explore our latest projects and see how we've helped businesses build their
+                creative ideas into innovative products.
+            </p>
+        </div>
     </section>
 
     {{-- Projects grid --}}

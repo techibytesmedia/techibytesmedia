@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/13/26, 11:33 PM
+ *   Last modified: 7/29/26, 12:38 AM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -58,19 +58,56 @@ test('the shared layout loads the brand fonts', function (): void {
         ->assertDontSee('fonts.googleapis.com', false);
 });
 
-test('the home hero uses a restrained top-right gradient on mobile', function (): void {
-    $this->get(route('home'))
+test('every page hero uses the grid-box background instead of gradient glows', function (string $routeName): void {
+    $this->get(route($routeName))
         ->assertSuccessful()
-        ->assertSee('-top-20 right-[-15%] h-72 w-72', false)
-        ->assertSee('bg-accent/8 blur-[90px]', false)
-        ->assertSee('sm:bg-accent/10 sm:blur-[120px]', false)
+        ->assertSee('bg-top-right bg-[size:56px_56px]', false)
+        ->assertSee('linear-gradient(to_right,var(--color-line)_1px,transparent_1px)', false)
+        ->assertSee('top-14 right-28 h-14 w-14 bg-accent/10', false)
+        ->assertDontSee('bg-accent/8 blur-[90px]', false)
+        ->assertDontSee('sm:bg-accent/10 sm:blur-[120px]', false)
+        ->assertDontSee('blur-[100px] sm:block', false)
         ->assertDontSee('data-testid="mobile-hero-decoration"', false)
-        ->assertDontSee('data-testid="mobile-hero-marker"', false)
-        ->assertSee('blur-[100px] sm:block', false);
+        ->assertDontSee('data-testid="mobile-hero-marker"', false);
 
     expect(file_get_contents(resource_path('css/app.css')))
         ->not->toContain('--animate-hero-marker:')
         ->not->toContain('@keyframes hero-marker');
+})->with(['home', 'services', 'portfolio', 'graphics', 'contact']);
+
+test('the home hero eyebrow shortens to two words on mobile', function (): void {
+    $this->get(route('home'))
+        ->assertSuccessful()
+        ->assertSee('<span class="sm:hidden">Digital Agency</span>', false)
+        ->assertSee('<span class="hidden sm:inline">Software &middot; Design &middot; Marketing &mdash; Abuja &times; Seattle</span>', false);
+});
+
+test('the mobile menu carries the grid-box background when expanded', function (): void {
+    $this->get(route('home'))
+        ->assertSuccessful()
+        ->assertSee('id="mobile-menu" class="relative hidden overflow-hidden border-t border-line bg-ink/95 backdrop-blur-xl lg:hidden"', false)
+        ->assertSee('relative flex flex-col gap-1 px-5 py-6', false);
+});
+
+test('the dark mode toggle is hidden for now and the site always renders light', function (): void {
+    $this->get(route('home'))
+        ->assertSuccessful()
+        ->assertDontSee('id="theme-toggle"', false)
+        ->assertDontSee("localStorage.getItem('theme')", false)
+        ->assertDontSee('<html lang="en" class="scroll-smooth dark">', false);
+
+    // Dark theme infrastructure stays in place for when the toggle returns
+    expect(file_get_contents(resource_path('css/app.css')))
+        ->toContain('@custom-variant dark')
+        ->toContain('.dark {');
+});
+
+test('the home CTA uses the dark grid-box background instead of a blurred glow', function (): void {
+    $this->get(route('home'))
+        ->assertSuccessful()
+        ->assertSee('linear-gradient(to_right,rgb(255_255_255/0.07)_1px,transparent_1px)', false)
+        ->assertSee('border border-accent-soft/25', false)
+        ->assertDontSee('bg-accent-soft/15 blur-[120px]', false);
 });
 
 test('the trusted clients section displays real logos responsively', function (): void {
@@ -79,15 +116,15 @@ test('the trusted clients section displays real logos responsively', function ()
         ->assertSee('data-testid="trusted-client-logos"', false)
         ->assertSee('grid w-full grid-cols-2 gap-3 sm:hidden', false)
         ->assertSee('hidden w-full overflow-hidden sm:block', false)
-        ->assertSee('Trusted by teams in fintech, education &amp; lifestyle', false)
+        ->assertSee('Trusted by teams across fintech, education, healthcare, fashion &amp; lifestyle', false)
         ->assertDontSee('images/work-done-logos/techibytes-logo.png', false);
 
-    foreach (['bills-waka-logo.png', 'scholarly_logo.png', 'sendbit-logo.png', 'topfreshcuts-logo.png'] as $logo) {
+    foreach (['bills-waka-logo.png', 'scholarly_logo.png', 'sendbit-logo.png', 'topfreshcuts-logo.png', 'st-michaels-logo.png', 'hofashionhub-logo.png'] as $logo) {
         $response->assertSee("images/work-done-logos/{$logo}", false);
         expect(public_path("images/work-done-logos/{$logo}"))->toBeFile();
     }
 
-    expect(mb_substr_count($response->getContent(), 'images/work-done-logos/'))->toBe(12);
+    expect(mb_substr_count($response->getContent(), 'images/work-done-logos/'))->toBe(18);
 });
 
 test('the home page presents realistic project and client totals', function (): void {
@@ -126,26 +163,47 @@ test('the team section presents the two real co-founders', function (): void {
 });
 
 test('project pages use automatically captured website screenshots', function (): void {
+    $projects = collect(config('projects.items'));
+    $recent_projects = $projects
+        ->filter(fn (array $project): bool => $project['recent'] ?? false)
+        ->take((int) config('projects.recent_limit', 4));
     $topfreshcuts = config('projects.items.topfreshcuts');
 
-    foreach (['home', 'portfolio'] as $route_name) {
-        $response = $this->get(route($route_name))
-            ->assertSuccessful()
-            ->assertSee($topfreshcuts['title'])
-            ->assertSee($topfreshcuts['tags'])
-            ->assertDontSee('TopFreshCuts — grooming platform');
+    $home = $this->get(route('home'))
+        ->assertSuccessful();
 
-        foreach (config('projects.items') as $project) {
-            $response
-                ->assertSee($project['url'], false)
-                ->assertSee($project['screenshot'], false)
-                ->assertSee($project['name']);
-        }
+    foreach ($recent_projects as $project) {
+        $home
+            ->assertSee($project['url'], false)
+            ->assertSee($project['screenshot'], false)
+            ->assertSee($project['name']);
+    }
+
+    $portfolio = $this->get(route('portfolio'))
+        ->assertSuccessful()
+        ->assertSee($topfreshcuts['title'])
+        ->assertSee($topfreshcuts['tags'])
+        ->assertDontSee('TopFreshCuts — grooming platform');
+
+    foreach ($projects as $project) {
+        $portfolio
+            ->assertSee($project['url'], false)
+            ->assertSee($project['screenshot'], false)
+            ->assertSee($project['name']);
     }
 });
 
 test('the homepage shows at most four projects explicitly marked as recent', function (): void {
-    $projects = config('projects.items');
+    $recent_limit = (int) config('projects.recent_limit', 4);
+    $projects = collect(config('projects.items'))
+        ->map(fn (array $project): array => [...$project, 'recent' => false])
+        ->all();
+    $recent_project_keys = array_slice(array_keys($projects), 0, $recent_limit);
+
+    foreach ($recent_project_keys as $project_key) {
+        $projects[$project_key]['recent'] = true;
+    }
+
     $projects['future-project'] = [
         'recent' => true,
         'name' => 'Future Project',
@@ -163,22 +221,23 @@ test('the homepage shows at most four projects explicitly marked as recent', fun
         ->assertSuccessful()
         ->assertDontSee('Future Project — Digital Platform');
 
-    expect(mb_substr_count($home->getContent(), 'images/projects/'))->toBe(4);
+    expect(mb_substr_count($home->getContent(), 'images/projects/'))->toBe($recent_limit);
 
-    $projects['billswaka']['recent'] = false;
+    $excluded_project_key = $recent_project_keys[0];
+    $projects[$excluded_project_key]['recent'] = false;
     config(['projects.items' => $projects]);
 
     $home = $this->get(route('home'))
         ->assertSuccessful()
         ->assertSee('Future Project — Digital Platform')
-        ->assertDontSee($projects['billswaka']['title']);
+        ->assertDontSee($projects[$excluded_project_key]['title']);
 
-    expect(mb_substr_count($home->getContent(), 'images/projects/'))->toBe(4);
+    expect(mb_substr_count($home->getContent(), 'images/projects/'))->toBe($recent_limit);
 
     $this->get(route('portfolio'))
         ->assertSuccessful()
         ->assertSee('Future Project — Digital Platform')
-        ->assertSee($projects['billswaka']['title']);
+        ->assertSee($projects[$excluded_project_key]['title']);
 });
 
 test('project screenshot hover motion stays restrained', function (): void {
