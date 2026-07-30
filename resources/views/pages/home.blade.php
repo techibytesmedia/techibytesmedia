@@ -71,6 +71,7 @@
             ['name' => 'TopFreshCuts', 'logo' => 'images/work-done-logos/topfreshcuts-logo.png', 'width' => 500, 'height' => 500],
             ['name' => "St. Michael's AFH", 'logo' => 'images/work-done-logos/st-michaels-logo.png', 'width' => 1254, 'height' => 1254],
             ['name' => 'HO Fashion Hub', 'logo' => 'images/work-done-logos/hofashionhub-logo.png', 'width' => 1058, 'height' => 562],
+            ['name' => 'Build Nigeria Initiative', 'logo' => 'images/work-done-logos/ibuildinitiative-logo.png', 'width' => 264, 'height' => 302],
         ];
     @endphp
 

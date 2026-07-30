@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/13/26, 8:06 PM
+ *   Last modified: 7/30/26, 1:52 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -28,6 +28,9 @@ Route::view('/', 'pages.home')->name('home');
 Route::view('/services', 'pages.services')->name('services');
 Route::view('/portfolio', 'pages.portfolio')->name('portfolio');
 Route::view('/graphics', 'pages.graphics')->name('graphics');
+Route::view('/terms', 'pages.terms')->name('terms');
+Route::view('/privacy', 'pages.privacy')->name('privacy');
+Route::view('/payment-services-disclosure', 'pages.payment-services-disclosure')->name('payment-services-disclosure');
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])
     ->middleware(['throttle:contact-form', ProtectContactForm::class])
@@ -35,7 +38,7 @@ Route::post('/contact', [ContactController::class, 'store'])
 
 Route::get('/sitemap.xml', function (): Response {
     $site_url = mb_rtrim((string) config('app.url'), '/');
-    $urls = collect(['home', 'services', 'portfolio', 'graphics', 'contact'])
+    $urls = collect(['home', 'services', 'portfolio', 'graphics', 'contact', 'terms', 'privacy', 'payment-services-disclosure'])
         ->map(function (string $routeName) use ($site_url): string {
             $uri = Route::getRoutes()->getByName($routeName)->uri();
 

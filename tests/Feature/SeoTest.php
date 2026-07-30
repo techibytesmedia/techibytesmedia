@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/13/26, 8:15 PM
+ *   Last modified: 7/30/26, 1:52 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -38,6 +38,9 @@ test('public pages include canonical and social metadata', function (string $rou
     'portfolio' => ['portfolio', '/portfolio'],
     'graphics' => ['graphics', '/graphics'],
     'contact' => ['contact', '/contact'],
+    'terms' => ['terms', '/terms'],
+    'privacy' => ['privacy', '/privacy'],
+    'payment disclosure' => ['payment-services-disclosure', '/payment-services-disclosure'],
 ]);
 
 test('home page includes organization and website structured data', function (): void {
@@ -61,11 +64,11 @@ test('sitemap lists every indexable public page', function (): void {
         ->assertSuccessful()
         ->assertHeader('Content-Type', 'application/xml');
 
-    foreach (['/', '/services', '/portfolio', '/graphics', '/contact'] as $path) {
+    foreach (['/', '/services', '/portfolio', '/graphics', '/contact', '/terms', '/privacy', '/payment-services-disclosure'] as $path) {
         $response->assertSee('<loc>https://techibytesmedia.test' . $path . '</loc>', false);
     }
 
-    expect(mb_substr_count($response->getContent(), '<url>'))->toBe(5);
+    expect(mb_substr_count($response->getContent(), '<url>'))->toBe(8);
 });
 
 test('robots file advertises the sitemap', function (): void {

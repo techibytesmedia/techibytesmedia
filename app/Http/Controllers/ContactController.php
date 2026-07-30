@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/13/26, 8:10 PM
+ *   Last modified: 7/30/26, 3:34 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -21,15 +21,16 @@ declare(strict_types = 1);
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactInquiry;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\ContactRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Crypt;
 
 class ContactController extends Controller
 {
-    public const string SUCCESS_MESSAGE = 'Thanks — we got your message and will reply within one business day.';
+    public const string SUCCESS_MESSAGE = 'Thanks — we got your message and will reply within 1 to 4 business days.';
 
     public function show(): View
     {
@@ -45,7 +46,16 @@ class ContactController extends Controller
     {
         $validated = $request->safe()->except('cf-turnstile-response');
 
-        Log::channel('single')->info('Contact inquiry received', $validated);
+        Mail::to(
+            (string) config('mail.contact.address'),
+            (string) config('mail.contact.name'),
+        )->send(new ContactInquiry(
+            name: (string) $validated['name'],
+            email: (string) $validated['email'],
+            service: isset($validated['service']) ? (string) $validated['service'] : null,
+            budget: isset($validated['budget']) ? (string) $validated['budget'] : null,
+            message: (string) $validated['message'],
+        ));
 
         return redirect()
             ->route('contact')

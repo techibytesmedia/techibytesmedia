@@ -1,0 +1,508 @@
+/*
+ *
+ *   Created by Techibytes Media Development Team
+ *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
+ *   Project: techibytesmedia
+ *   Last modified: 7/30/26, 4:30 PM
+ *   Modified or Created by: erigb
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ *   except in compliance with the License. You may obtain a copy of the License at
+ *   https://www.apache.org/licenses/LICENSE-2.0. Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ *    either express or implied. See the License for the specific language governing permissions and
+ *    limitations under the License.
+ * /
+ */
+
+/* Base */
+
+body,
+body *:not(html):not(style):not(br):not(tr):not(code) {
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    position: relative;
+}
+
+body {
+    -webkit-text-size-adjust: none;
+    background-color: #f6f8fb;
+    color: #5c7288;
+    height: 100%;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+    width: 100% !important;
+}
+
+p,
+ul,
+ol,
+blockquote {
+    line-height: 1.4;
+    text-align: start;
+}
+
+a {
+    color: #103857;
+}
+
+a img {
+    border: none;
+}
+
+/* Typography */
+
+h1 {
+    color: #103857;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 0;
+    text-align: start;
+}
+
+h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 0;
+    text-align: start;
+}
+
+h3 {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 0;
+    text-align: left;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.5em;
+    margin-top: 0;
+    text-align: left;
+}
+
+p.sub {
+    font-size: 12px;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* Layout */
+
+.wrapper {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+    background-color: #f6f8fb;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.content {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+/* Header */
+
+.header {
+    padding: 25px 0;
+    text-align: center;
+}
+
+.header a {
+    color: #103857;
+    font-size: 19px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Logo */
+
+.logo {
+    height: 75px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    max-height: 75px;
+    width: 75px;
+}
+
+/* Body */
+
+.body {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+    background-color: #f6f8fb;
+    border-bottom: 1px solid #fafafa;
+    border-top: 1px solid #fafafa;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.inner-body {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 570px;
+    background-color: #ffffff;
+    border-color: #dde5ec;
+    border-radius: 16px;
+    border-width: 1px;
+    box-shadow: 0 4px 16px rgba(16, 56, 87, 0.06);
+    margin: 0 auto;
+    padding: 0;
+    width: 570px;
+}
+
+.inner-body a {
+    word-break: break-all;
+}
+
+/* Subcopy */
+
+.subcopy {
+    border-top: 1px solid #e4e4e7;
+    margin-top: 25px;
+    padding-top: 25px;
+}
+
+.subcopy p {
+    font-size: 14px;
+}
+
+/* Footer */
+
+.footer {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 570px;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    width: 570px;
+}
+
+.footer p {
+    color: #a1a1aa;
+    font-size: 12px;
+    text-align: center;
+}
+
+.footer a {
+    color: #a1a1aa;
+    text-decoration: underline;
+}
+
+/* Tables */
+
+.table table {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+    margin: 30px auto;
+    width: 100%;
+}
+
+.table th {
+    border-bottom: 1px solid #e4e4e7;
+    margin: 0;
+    padding-bottom: 8px;
+}
+
+.table td {
+    color: #52525b;
+    font-size: 15px;
+    line-height: 18px;
+    margin: 0;
+    padding: 10px 0;
+}
+
+.content-cell {
+    max-width: 100vw;
+    padding: 36px;
+}
+
+/* Buttons */
+
+.action {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    -premailer-width: 100%;
+    margin: 30px auto;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    float: unset;
+}
+
+.button {
+    -webkit-text-size-adjust: none;
+    border-radius: 16px;
+    color: #fff;
+    display: inline-block;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.button-blue,
+.button-primary {
+    background-color: #103857;
+    border-bottom: 8px solid #18181b;
+    border-left: 18px solid #18181b;
+    border-right: 18px solid #18181b;
+    border-top: 8px solid #18181b;
+}
+
+.button-green,
+.button-success {
+    background-color: #16a34a;
+    border-bottom: 8px solid #16a34a;
+    border-left: 18px solid #16a34a;
+    border-right: 18px solid #16a34a;
+    border-top: 8px solid #16a34a;
+}
+
+.button-red,
+.button-error {
+    background-color: #dc2626;
+    border-bottom: 8px solid #dc2626;
+    border-left: 18px solid #dc2626;
+    border-right: 18px solid #dc2626;
+    border-top: 8px solid #dc2626;
+}
+
+/* Panels */
+
+.panel {
+    border-left: #c75b12 solid 4px;
+    margin: 21px 0;
+}
+
+.panel-content {
+    background-color: #f6f8fb;
+    color: #52525b;
+    padding: 16px;
+}
+
+.panel-content p {
+    color: #52525b;
+}
+
+.panel-item {
+    padding: 0;
+}
+
+.panel-item p:last-of-type {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* Utilities */
+
+.break-all {
+    word-break: break-all;
+}
+
+/* Techibytes Media contact inquiry layout. */
+.header {
+    background-color: #f6f8fb;
+    padding: 0;
+}
+
+.header-inner {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e4e4e7;
+    max-width: 100%;
+    width: 570px;
+}
+
+.header-brand {
+    padding: 22px 0 22px 36px;
+}
+
+.header-site {
+    padding-right: 36px;
+}
+
+.header a {
+    color: #103857;
+    text-decoration: none;
+}
+
+.brand-logo {
+    display: block;
+    height: 34px;
+    width: 34px;
+}
+
+.brand-name-cell {
+    padding-left: 10px;
+    vertical-align: middle;
+}
+
+.brand-name {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.header-site a {
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.body {
+    background-color: #f6f8fb;
+    border: 0;
+}
+
+.inner-body {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    max-width: 100%;
+}
+
+.content-cell {
+    padding: 38px 36px;
+}
+
+h1 {
+    color: #202124;
+    font-size: 24px;
+    line-height: 1.25;
+}
+
+.inquiry-icon {
+    background-color: #fff4d6;
+    border-radius: 50%;
+    color: #c75b12;
+    font-size: 28px;
+    height: 58px;
+    line-height: 58px;
+    margin: 0 auto 24px;
+    text-align: center;
+    width: 58px;
+}
+
+.panel {
+    border: 1px solid #e7dfc7;
+    border-collapse: separate;
+    border-radius: 10px;
+    border-spacing: 0;
+    margin: 24px 0;
+    max-width: 100%;
+    overflow: hidden;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.panel-content {
+    background-color: #fffbeb;
+    border-radius: 10px;
+    color: #52525b;
+    overflow-wrap: anywhere;
+    padding: 20px 22px;
+    word-break: break-word;
+}
+
+.panel-content p {
+    color: #52525b;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.message-copy {
+    color: #52525b;
+    line-height: 1.6;
+    margin-bottom: 22px;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.footer {
+    background-color: #f8fafc;
+    max-width: 100%;
+    padding: 0;
+    text-align: left;
+}
+
+.footer-content {
+    padding: 30px 36px;
+}
+
+.footer-logo {
+    display: block;
+    height: 28px;
+    width: 28px;
+}
+
+.footer-brand {
+    color: #202124;
+    font-size: 13px;
+    font-weight: 700;
+    padding-left: 9px;
+    vertical-align: middle;
+}
+
+.footer-content p {
+    color: #71717a;
+    font-size: 11px;
+    line-height: 1.45;
+    text-align: left;
+}
+
+.footer-content a {
+    color: #103857;
+}
+
+@media only screen and (max-width: 600px) {
+    .header-inner,
+    .inner-body,
+    .footer,
+    .panel {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .content-cell,
+    .footer-content {
+        padding: 28px 24px !important;
+    }
+
+    .header-brand {
+        padding-left: 24px !important;
+    }
+
+    .header-site {
+        display: none !important;
+    }
+
+    h1 {
+        font-size: 21px !important;
+    }
+
+    .inquiry-icon {
+        font-size: 24px !important;
+        height: 50px !important;
+        line-height: 50px !important;
+        width: 50px !important;
+    }
+
+    .panel-content {
+        padding: 18px !important;
+    }
+}

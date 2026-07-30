@@ -17,7 +17,7 @@
                 Let's talk about <span class="text-accent">your project.</span>
             </h1>
             <p class="reveal mt-8 max-w-xl text-lg leading-relaxed text-muted" style="--reveal-delay: .2s">
-                Tell us what you're building and we'll come back within one business day with honest
+                Tell us what you're building and we'll come back within 1 to 4 business days with honest
                 advice and clear next steps — no pressure, no jargon.
             </p>
         </div>
@@ -45,13 +45,16 @@
                     <input type="hidden" name="_contact_form" value="{{ $contactFormToken }}">
 
                     <div class="pointer-events-none absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
-                        <label for="company_website">Company website</label>
+                        <label for="_contact_reference">Leave this field empty</label>
                         <input
                             type="text"
-                            id="company_website"
-                            name="company_website"
+                            id="_contact_reference"
+                            name="_contact_reference"
                             tabindex="-1"
                             autocomplete="off"
+                            data-1p-ignore
+                            data-lpignore="true"
+                            data-bwignore="true"
                         >
                     </div>
 

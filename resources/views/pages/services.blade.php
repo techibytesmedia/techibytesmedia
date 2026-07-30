@@ -151,7 +151,7 @@
                     </h2>
                     <p class="reveal mt-6 max-w-sm leading-relaxed text-muted">
                         Something else on your mind?
-                        <a href="{{ route('contact') }}" class="link-draw text-accent">Ask us directly</a> — we reply within one business day.
+                        <a href="{{ route('contact') }}" class="link-draw text-accent">Ask us directly</a> — we reply within 1 to 4 business days.
                     </p>
                 </div>
 

@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/13/26, 8:15 PM
+ *   Last modified: 7/30/26, 4:20 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -60,7 +60,7 @@ class ProtectContactForm
 
     private function suspicionReason(Request $request): ?string
     {
-        if ($request->filled('company_website')) {
+        if ($request->filled('_contact_reference')) {
             return 'honeypot_filled';
         }
 

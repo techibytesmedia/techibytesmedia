@@ -242,6 +242,10 @@
                         A software development &amp; digital marketing agency crafting websites, apps and brands
                         from Abuja to Seattle since 2020.
                     </p>
+                    <p class="mt-3 max-w-sm text-xs leading-relaxed text-white/50">
+                        Some of our digital products include payment features. Techibytes Media is not a bank.
+                        We do not hold or control customer funds. Payments are handled by independent providers such as Flutterwave, Stripe and other partners.
+                    </p>
                     <div class="mt-6 flex gap-3">
                         @foreach ([
                             'Facebook' => 'https://www.facebook.com/techibytesmedia',
@@ -309,8 +313,13 @@
         </div>
 
         <div class="border-t border-white/10">
-            <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-1.5 px-4 py-5 text-center text-xs leading-relaxed text-white/50 sm:flex-row sm:gap-4 sm:px-8 sm:text-left">
+            <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-5 text-center text-xs leading-relaxed text-white/50 lg:flex-row lg:gap-4 lg:px-8 lg:text-left">
                 <p>&copy; {{ date('Y') }} Techibytes Media. All rights reserved.</p>
+                <nav aria-label="Legal" class="flex flex-wrap justify-center gap-x-4 gap-y-2">
+                    <a href="{{ route('terms') }}" class="hover:text-white">Terms and Conditions</a>
+                    <a href="{{ route('privacy') }}" class="hover:text-white">Privacy Policy</a>
+                    <a href="{{ route('payment-services-disclosure') }}" class="hover:text-white">Payment Services Disclosure</a>
+                </nav>
                 <p>Abuja, Nigeria &mdash; Seattle, USA</p>
             </div>
         </div>

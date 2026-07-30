@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/13/26, 8:13 PM
+ *   Last modified: 7/30/26, 4:20 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -19,9 +19,11 @@
 
 declare(strict_types = 1);
 
+use App\Mail\ContactInquiry;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\ContactController;
 
@@ -31,9 +33,12 @@ beforeEach(function (): void {
         'services.turnstile.secret_key' => 'test-secret-key',
         'services.turnstile.action' => 'contact',
         'services.turnstile.verify_url' => 'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+        'mail.contact.address' => 'support@techibytesmedia.com',
+        'mail.contact.name' => 'Techibytes Media Support',
     ]);
 
     Http::preventStrayRequests();
+    Mail::fake();
 });
 
 test('the contact form displays the responsive Turnstile widget', function (): void {
@@ -43,12 +48,15 @@ test('the contact form displays the responsive Turnstile widget', function (): v
         ->assertSee('data-sitekey="test-site-key"', false)
         ->assertSee('data-action="contact"', false)
         ->assertSee('data-size="flexible"', false)
-        ->assertSee('name="company_website"', false)
+        ->assertSee('within 1 to 4 business days')
+        ->assertDontSee('within one business day')
+        ->assertSee('name="_contact_reference"', false)
+        ->assertDontSee('name="company_website"', false)
         ->assertSee('tabindex="-1"', false)
         ->assertSee('name="_contact_form"', false);
 });
 
-test('a valid contact submission redirects back with a status message', function (): void {
+test('a valid contact submission sends a responsive inquiry email immediately', function (): void {
     fake_successful_turnstile();
 
     $this->post(route('contact.submit'), contact_form_payload())
@@ -58,6 +66,13 @@ test('a valid contact submission redirects back with a status message', function
     Http::assertSent(fn (Request $request): bool => 'https://challenges.cloudflare.com/turnstile/v0/siteverify' === $request->url()
         && 'test-secret-key' === $request['secret']
         && 'valid-token' === $request['response']);
+
+    Mail::assertSent(ContactInquiry::class, fn (ContactInquiry $mail): bool => $mail->hasTo('support@techibytesmedia.com')
+            && $mail->hasReplyTo('ada@example.com')
+            && 'Ada Obi' === $mail->name
+            && 'Web Development' === $mail->service
+            && '$1,000 – $5,000' === $mail->budget
+            && 'We need a new e-commerce website for our retail brand.' === $mail->message);
 });
 
 test('a contact submission requires the mandatory fields', function (array $payload, string $invalidField): void {
@@ -122,22 +137,19 @@ test('a contact submission fails safely when Turnstile is unavailable', function
 });
 
 test('a honeypot submission is discarded and logged without contact details', function (): void {
-    Log::spy();
+    Log::expects('warning')
+        ->withArgs(fn (string $message, array $context): bool => 'Suspicious contact form submission blocked' === $message
+                && 'honeypot_filled' === $context['reason']
+                && [] === array_intersect(['name', 'email', 'message', '_contact_reference'], array_keys($context)));
 
     $this->post(route('contact.submit'), contact_form_payload([
-        'company_website' => 'https://spam.example',
+        '_contact_reference' => 'spam',
     ]))
         ->assertRedirect(route('contact'))
         ->assertSessionHas('status', ContactController::SUCCESS_MESSAGE)
         ->assertSessionMissing('errors');
 
     Http::assertNothingSent();
-
-    Log::shouldHaveReceived('warning')
-        ->once()
-        ->withArgs(fn (string $message, array $context): bool => 'Suspicious contact form submission blocked' === $message
-                && 'honeypot_filled' === $context['reason']
-                && [] === array_intersect(['name', 'email', 'message', 'company_website'], array_keys($context)));
 });
 
 test('a form submitted too quickly is discarded before Turnstile verification', function (): void {

@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/29/26, 12:38 AM
+ *   Last modified: 7/30/26, 2:46 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -29,6 +29,9 @@ test('public pages render successfully', function (string $routeName, string $ex
     'portfolio' => ['portfolio', 'Work that'],
     'graphics' => ['graphics', 'Design that makes brands'],
     'contact' => ['contact', 'your project.'],
+    'terms' => ['terms', 'Terms and Conditions'],
+    'privacy' => ['privacy', 'Privacy Policy'],
+    'payment disclosure' => ['payment-services-disclosure', 'Payment Services Disclosure'],
 ]);
 
 test('every page includes the shared navigation and footer', function (): void {
@@ -119,12 +122,12 @@ test('the trusted clients section displays real logos responsively', function ()
         ->assertSee('Trusted by teams across fintech, education, healthcare, fashion &amp; lifestyle', false)
         ->assertDontSee('images/work-done-logos/techibytes-logo.png', false);
 
-    foreach (['bills-waka-logo.png', 'scholarly_logo.png', 'sendbit-logo.png', 'topfreshcuts-logo.png', 'st-michaels-logo.png', 'hofashionhub-logo.png'] as $logo) {
+    foreach (['bills-waka-logo.png', 'scholarly_logo.png', 'sendbit-logo.png', 'topfreshcuts-logo.png', 'st-michaels-logo.png', 'hofashionhub-logo.png', 'ibuildinitiative-logo.png'] as $logo) {
         $response->assertSee("images/work-done-logos/{$logo}", false);
         expect(public_path("images/work-done-logos/{$logo}"))->toBeFile();
     }
 
-    expect(mb_substr_count($response->getContent(), 'images/work-done-logos/'))->toBe(18);
+    expect(mb_substr_count($response->getContent(), 'images/work-done-logos/'))->toBe(21);
 });
 
 test('the home page presents realistic project and client totals', function (): void {

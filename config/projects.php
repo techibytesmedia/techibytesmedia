@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/29/26, 12:30 AM
+ *   Last modified: 7/30/26, 2:46 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -88,6 +88,16 @@ return [
             'sector' => 'Healthcare',
             'tags' => 'Web development',
             'result' => 'A welcoming adult family home website that presents its care services and helps families get in touch.',
+        ],
+        'ibuildinitiative' => [
+            'recent' => true,
+            'name' => 'Build Nigeria Initiative',
+            'title' => 'Build Nigeria Initiative — Digital Skills Education',
+            'url' => 'https://ibuildinitiative.org/',
+            'screenshot' => 'images/projects/ibuildinitiative-753689.jpg',
+            'sector' => 'Education & Nonprofit',
+            'tags' => 'Web development · Digital skills',
+            'result' => 'A nonprofit platform connecting Nigerian youth with digital skills training, resources and career opportunities.',
         ],
     ],
 ];
