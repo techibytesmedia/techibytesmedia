@@ -65,7 +65,7 @@
 
     @php
         $trustedClients = [
-            ['name' => 'Bills Waka', 'logo' => 'images/work-done-logos/bills-waka-logo.png', 'width' => 192, 'height' => 192],
+            ['name' => 'Bills Waka', 'logo' => 'images/work-done-logos/billswaka-logo.png', 'width' => 192, 'height' => 192],
             ['name' => 'Scholarly', 'logo' => 'images/work-done-logos/scholarly_logo.png', 'width' => 250, 'height' => 48],
             ['name' => 'Sendbit', 'logo' => 'images/work-done-logos/sendbit-logo.png', 'width' => 300, 'height' => 300],
             ['name' => 'TopFreshCuts', 'logo' => 'images/work-done-logos/topfreshcuts-logo.png', 'width' => 500, 'height' => 500],

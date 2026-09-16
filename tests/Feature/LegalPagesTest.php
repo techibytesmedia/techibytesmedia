@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/30/26, 4:30 PM
+ *   Last modified: 8/12/26, 2:17 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -92,14 +92,12 @@ test('legal pages avoid naming individual Techibytes products', function (string
         ->assertDontSee('Scholarly');
 })->with(['terms', 'privacy', 'payment-services-disclosure']);
 
-test('the shared footer links to every legal page and displays the short fintech disclosure', function (string $route_name): void {
+test('the shared footer links to every legal page without displaying the fintech disclosure', function (string $route_name): void {
     $this->get(route($route_name))
         ->assertSuccessful()
         ->assertSee('href="' . route('terms') . '"', false)
         ->assertSee('href="' . route('privacy') . '"', false)
         ->assertSee('href="' . route('payment-services-disclosure') . '"', false)
-        ->assertSee('Some of our digital products include payment features. Techibytes Media is not a bank.')
-        ->assertSee('We do not hold or control customer funds.')
-        ->assertSee('Flutterwave')
-        ->assertSee('Stripe');
+        ->assertDontSee('Some of our digital products include payment features.')
+        ->assertDontSee('We do not hold or control customer funds.');
 })->with(['home', 'services', 'portfolio', 'graphics', 'contact', 'terms', 'privacy', 'payment-services-disclosure']);

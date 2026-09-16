@@ -33,13 +33,6 @@
                         'areaServed' => 'NG',
                         'availableLanguage' => 'en',
                     ],
-                    [
-                        '@type' => 'ContactPoint',
-                        'telephone' => '+12065786373',
-                        'contactType' => 'customer service',
-                        'areaServed' => 'US',
-                        'availableLanguage' => 'en',
-                    ],
                 ],
                 'sameAs' => [
                     'https://www.facebook.com/techibytesmedia',
@@ -242,10 +235,6 @@
                         A software development &amp; digital marketing agency crafting websites, apps and brands
                         from Abuja to Seattle since 2020.
                     </p>
-                    <p class="mt-3 max-w-sm text-xs leading-relaxed text-white/50">
-                        Some of our digital products include payment features. Techibytes Media is not a bank.
-                        We do not hold or control customer funds. Payments are handled by independent providers such as Flutterwave, Stripe and other partners.
-                    </p>
                     <div class="mt-6 flex gap-3">
                         @foreach ([
                             'Facebook' => 'https://www.facebook.com/techibytesmedia',
@@ -295,7 +284,6 @@
                         Seattle, WA 98104
                     </p>
                     <div class="mt-3 flex flex-col items-start gap-2">
-                        <a href="tel:+12065786373" class="link-draw text-sm text-accent-soft">+1 206 578 6373</a>
                         <a href="mailto:info@techibytesmedia.com" class="link-draw text-sm text-white/80">info@techibytesmedia.com</a>
                     </div>
                 </div>

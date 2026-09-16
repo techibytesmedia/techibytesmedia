@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/30/26, 2:46 PM
+ *   Last modified: 9/15/26, 7:22 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -34,7 +34,7 @@ return [
             'name' => 'BillsWaka',
             'title' => 'Bills Waka — Bills Platform',
             'url' => 'https://billswaka.com/',
-            'screenshot' => 'images/projects/billswaka-495798.jpg',
+            'screenshot' => 'images/projects/billswaka-678778.jpg',
             'sector' => 'Bills Platform',
             'tags' => 'Mobile app · Web development',
             'result' => 'Create virtual dollar cards and make payments with ease.',
@@ -44,7 +44,7 @@ return [
             'name' => 'Scholarly',
             'title' => 'Scholarly — Education Platform',
             'url' => 'https://scholarly.africa/',
-            'screenshot' => 'images/projects/scholarly-387435.jpg',
+            'screenshot' => 'images/projects/scholarly-633884.jpg',
             'sector' => 'Education',
             'tags' => 'Web development',
             'result' => 'A leading educational technology company based in Nigeria with over 3m users.',
@@ -54,7 +54,7 @@ return [
             'name' => 'Sendbit',
             'title' => 'Sendbit — Fintech Platform',
             'url' => 'https://mysendbit.com/',
-            'screenshot' => 'images/projects/sendbit-495328.jpg',
+            'screenshot' => 'images/projects/sendbit-900289.jpg',
             'sector' => 'Fintech',
             'tags' => 'App · Web development',
             'result' => 'Accept payments globally through invoices, international accounts and digital assets.',
@@ -64,7 +64,7 @@ return [
             'name' => 'TopFreshCuts',
             'title' => 'TopFreshCuts — Barbershop',
             'url' => 'https://topfreshcuts.com/',
-            'screenshot' => 'images/projects/topfreshcuts-648647.jpg',
+            'screenshot' => 'images/projects/topfreshcuts-632403.jpg',
             'sector' => 'Beauty & Grooming',
             'tags' => 'Web development · booking',
             'result' => 'A modern barbershop website that showcases services, pricing and makes it easy for clients to book appointments.',
@@ -74,7 +74,7 @@ return [
             'name' => 'HO Fashion Hub',
             'title' => 'HO Fashion Hub — Fashion E-commerce',
             'url' => 'https://hofashionhub.com/',
-            'screenshot' => 'images/projects/hofashionhub-229983.jpg',
+            'screenshot' => 'images/projects/hofashionhub-635979.jpg',
             'sector' => 'Fashion & E-commerce',
             'tags' => 'Web development · E-commerce',
             'result' => 'An online fashion destination designed to help customers discover and shop curated styles.',
@@ -84,7 +84,7 @@ return [
             'name' => "St. Michael's AFH",
             'title' => "St. Michael's AFH — Adult Family Home",
             'url' => 'https://stmichaelsafh.com/',
-            'screenshot' => 'images/projects/st-michaels-afh-552774.jpg',
+            'screenshot' => 'images/projects/st-michaels-afh-997435.jpg',
             'sector' => 'Healthcare',
             'tags' => 'Web development',
             'result' => 'A welcoming adult family home website that presents its care services and helps families get in touch.',
@@ -94,10 +94,20 @@ return [
             'name' => 'Build Nigeria Initiative',
             'title' => 'Build Nigeria Initiative — Digital Skills Education',
             'url' => 'https://ibuildinitiative.org/',
-            'screenshot' => 'images/projects/ibuildinitiative-753689.jpg',
+            'screenshot' => 'images/projects/ibuildinitiative-798068.jpg',
             'sector' => 'Education & Nonprofit',
             'tags' => 'Web development · Digital skills',
             'result' => 'A nonprofit platform connecting Nigerian youth with digital skills training, resources and career opportunities.',
+        ],
+        'senator-osita-izunaso' => [
+            'recent' => true,
+            'name' => 'Senator Osita Izunaso',
+            'title' => 'Senator Osita Izunaso — Public Service Platform',
+            'url' => 'https://ositaizunaso.com/',
+            'screenshot' => 'images/projects/senator-osita-izunaso-421070.jpg',
+            'sector' => 'Government & Public Service',
+            'tags' => 'Web development · Public service',
+            'result' => 'An official platform presenting the senator\'s public service record, legislative agenda and projects across Imo West.',
         ],
     ],
 ];

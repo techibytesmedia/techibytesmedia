@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/30/26, 1:52 PM
+ *   Last modified: 8/28/26, 10:12 AM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -54,7 +54,8 @@ test('home page includes organization and website structured data', function ():
         ->assertSee('"legalName":"Techibytes Media LLC"', false)
         ->assertSee('"addressLocality":"Abuja"', false)
         ->assertSee('"addressLocality":"Seattle"', false)
-        ->assertSee('"telephone":"+12065786373"', false);
+        ->assertSee('"telephone":"+2349031807262"', false)
+        ->assertDontSee('+12065786373', false);
 });
 
 test('sitemap lists every indexable public page', function (): void {

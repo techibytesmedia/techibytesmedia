@@ -5,7 +5,7 @@
  *   Created by Techibytes Media Development Team
  *   Copyright Ⓒ 2026. All rights reserved, https://techibytesmedia.com/
  *   Project: techibytesmedia
- *   Last modified: 7/30/26, 2:46 PM
+ *   Last modified: 9/15/26, 7:25 PM
  *   Modified or Created by: erigb
  *
  *   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -44,12 +44,15 @@ test('every page includes the shared navigation and footer', function (): void {
         ->assertSee('aria-hidden="true"', false);
 });
 
-test('the Seattle phone number appears in the footer and contact page', function (): void {
+test('the Seattle phone number is not published in the footer or contact page', function (): void {
     foreach (['home', 'contact'] as $route_name) {
         $this->get(route($route_name))
             ->assertSuccessful()
-            ->assertSee('href="tel:+12065786373"', false)
-            ->assertSee('+1 206 578 6373');
+            ->assertDontSee('+12065786373', false)
+            ->assertDontSee('+1 206 578 6373')
+            ->assertSee('href="tel:+2349031807262"', false)
+            ->assertSee('Seattle, WA 98104')
+            ->assertSee('info@techibytesmedia.com');
     }
 });
 
@@ -120,9 +123,10 @@ test('the trusted clients section displays real logos responsively', function ()
         ->assertSee('grid w-full grid-cols-2 gap-3 sm:hidden', false)
         ->assertSee('hidden w-full overflow-hidden sm:block', false)
         ->assertSee('Trusted by teams across fintech, education, healthcare, fashion &amp; lifestyle', false)
-        ->assertDontSee('images/work-done-logos/techibytes-logo.png', false);
+        ->assertDontSee('images/work-done-logos/techibytes-logo.png', false)
+        ->assertDontSee('images/work-done-logos/senator-izunaso-logo.png', false);
 
-    foreach (['bills-waka-logo.png', 'scholarly_logo.png', 'sendbit-logo.png', 'topfreshcuts-logo.png', 'st-michaels-logo.png', 'hofashionhub-logo.png', 'ibuildinitiative-logo.png'] as $logo) {
+    foreach (['billswaka-logo.png', 'scholarly_logo.png', 'sendbit-logo.png', 'topfreshcuts-logo.png', 'st-michaels-logo.png', 'hofashionhub-logo.png', 'ibuildinitiative-logo.png'] as $logo) {
         $response->assertSee("images/work-done-logos/{$logo}", false);
         expect(public_path("images/work-done-logos/{$logo}"))->toBeFile();
     }

@@ -179,7 +179,6 @@
                         Seattle, WA 98104,<br>
                         United States
                     </p>
-                    <a href="tel:+12065786373" class="link-draw mt-4 inline-block font-semibold text-accent">+1 206 578 6373</a>
                 </div>
 
                 <div class="rounded-2xl border border-line bg-panel p-8">
